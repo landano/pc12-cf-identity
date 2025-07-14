@@ -4,7 +4,9 @@
 **Created:** 2025-07-14
 **Assignee:** Unassigned
 **Priority:** High
-**Labels:** cardano, plugin, integration, mendix, nft
+**Labels:** cardano, plugin, integration, mendix, nft, sprint-1, sprint-ready
+**Sprint:** Sprint 1 (2025-07-14)
+**Sprint Priority:** 4 (Enables NFT track)
 
 ## Description
 Integrate with the existing Cardano Mendix plugin to leverage proven NFT management capabilities while maintaining security boundaries between KERI identity operations and Cardano blockchain operations.
@@ -37,6 +39,18 @@ Integrate with the existing Cardano Mendix plugin to leverage proven NFT managem
 ## Comments
 ### 2025-07-14 - Dorus van der Kroft
 Must leverage existing Cardano plugin while maintaining strict security boundaries. Integration should enhance rather than complicate existing functionality.
+
+## Acceptance Criteria
+- [ ] Existing Cardano plugin capabilities are thoroughly analyzed and documented
+- [ ] Integration architecture maintains strict security boundaries
+- [ ] NFT querying functionality is integrated without compromising security
+- [ ] Wallet interoperability features work seamlessly with existing plugin
+- [ ] Isolated execution contexts prevent security leaks between systems
+- [ ] Integration testing validates compatibility with existing functionality
+- [ ] Security review confirms no privilege escalation risks
+- [ ] Performance impact is minimal on existing Cardano operations
+- [ ] Error handling maintains security boundaries in failure scenarios
+- [ ] Documentation covers integration patterns and security considerations
 
 ## Implementation Log
 <!-- Auto-generated log of actual development work performed by the LLM -->

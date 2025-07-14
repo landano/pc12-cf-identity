@@ -4,7 +4,9 @@
 **Created:** 2025-07-14
 **Assignee:** Unassigned
 **Priority:** High
-**Labels:** research, architecture, veridian, keri
+**Labels:** research, architecture, veridian, keri, sprint-1, sprint-ready
+**Sprint:** Sprint 1 (2025-07-14)
+**Sprint Priority:** 1 (Critical - Unblocks 12 issues)
 
 ## Description
 Research and document the integration approach for the Veridian platform within the Mendix architecture. This foundational work will inform all subsequent identity management features and ensure proper KERI protocol compliance.

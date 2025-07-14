@@ -58,9 +58,9 @@ Started work on this issue. Beginning implementation of acceptance criteria.
 ### 2025-07-14 14:30 - Dorus van der Kroft Implementation
 **Action**: Completed comprehensive research and documentation of Veridian Identity platform integration
 **Files Modified**: 
-- implementation/mendix-integration-patterns.md
-- implementation/security-architecture-specification.md
-- implementation/technical-integration-specification.md
+- shared/research/mendix-integration-patterns.md
+- shared/research/security-architecture-specification.md
+- shared/research/technical-integration-specification.md
 **Commands Run**: Research conducted via Task agent for Veridian API, KERI protocol analysis, and security requirements
 **Result**: Success - All acceptance criteria met with comprehensive technical documentation
 **Next Steps**: Ready to complete issue and unblock dependent identity creation features
@@ -91,10 +91,10 @@ All documentation ready for implementation team to begin development of identity
 ### 2025-07-14 16:00 - Dorus van der Kroft CRITICAL CORRECTION
 **Action**: Major architectural correction - implemented hybrid QR code linking approach
 **Files Modified**: 
-- implementation/mendix-integration-patterns.md (UPDATED)
-- implementation/security-architecture-specification.md (UPDATED)
-- implementation/technical-integration-specification.md (UPDATED)
-- implementation/hybrid-qr-linking-analysis.md (NEW)
+- shared/research/mendix-integration-patterns.md (UPDATED)
+- shared/research/security-architecture-specification.md (UPDATED)
+- shared/research/technical-integration-specification.md (UPDATED)
+- shared/research/hybrid-qr-linking-analysis.md (NEW)
 **Commands Run**: Comprehensive analysis and documentation update
 **Result**: Success - Critical security flaw corrected, edge protection maintained
 **Next Steps**: Architecture now properly maintains KERI edge protection principles

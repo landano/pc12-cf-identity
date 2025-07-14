@@ -9,7 +9,9 @@
 **Sprint Priority:** 2 (Critical security foundation)
 
 ## Description
-Implement comprehensive KERI edge protection ensuring private keys never leave user devices and all cryptographic operations maintain the highest security standards required by KERI protocol.
+Implement comprehensive KERI edge protection using the **hybrid QR code linking approach** ensuring private keys never leave Veridian mobile devices. This implementation maintains the highest security standards while enabling secure account linking between Mendix and Veridian through challenge-response authentication.
+
+**🔧 Updated based on ISSUE-001 research**: Edge protection implemented through hybrid architecture where all private key operations occur exclusively in Veridian mobile app, with Mendix handling only public key verification and business logic.
 
 ## Tasks
 - [ ] Implement private key isolation on user devices
@@ -29,7 +31,7 @@ Implement comprehensive KERI edge protection ensuring private keys never leave u
 - Implements: Epic 6 - Security Implementation and Cryptographic Protection
 
 ## Relationships
-- Depends on: [[ISSUE-001-veridian-platform-integration-research]]
+- ✅ Unblocked by: [[ISSUE-001-veridian-platform-integration-research]] (Research complete - hybrid QR approach confirmed)
 - Blocks: [[ISSUE-002-chief-identity-creation-ui]]
 - Blocks: [[ISSUE-003-representative-identity-creation-ui]]
 - Implements: [[Epic6-Security-Implementation-Cryptographic-Protection]]
@@ -39,16 +41,19 @@ Implement comprehensive KERI edge protection ensuring private keys never leave u
 Edge protection is fundamental to KERI security model. Must ensure private keys never leave user devices under any circumstances.
 
 ## Acceptance Criteria
-- [ ] Private keys are never transmitted or stored outside user devices
-- [ ] Hardware Security Module (HSM) integration is functional
-- [ ] Key generation uses cryptographically secure random number generation
-- [ ] Key rotation mechanism supports KERI protocol requirements
-- [ ] All cryptographic operations are validated against KERI standards
-- [ ] Edge protection audit logging captures all security events
-- [ ] Security implementation passes penetration testing
-- [ ] Documentation includes threat model and security controls
-- [ ] Integration with Signify client library is complete
-- [ ] Backup and recovery procedures for keys are documented
+- [ ] Private keys never leave Veridian mobile devices (hybrid architecture enforced)
+- [ ] No private key storage or operations on Mendix servers (server-side protection)
+- [ ] QR code challenge-response maintains edge protection during account linking
+- [ ] Key generation occurs exclusively in Veridian mobile app with secure randomness
+- [ ] Key rotation mechanism works entirely within mobile app environment
+- [ ] All cryptographic operations validated against KERI standards on mobile
+- [ ] Edge protection audit logging captures all security events (mobile and server)
+- [ ] Security implementation passes penetration testing for hybrid architecture
+- [ ] Documentation includes hybrid threat model and security controls
+- [ ] Integration with Signify client library maintains edge protection
+- [ ] Backup and recovery procedures work within mobile-only key constraints
+- [ ] Challenge-response authentication prevents key exposure during linking
+- [ ] Signature verification on Mendix uses only public keys (never private)
 
 ## Implementation Log
 <!-- Auto-generated log of actual development work performed by the LLM -->

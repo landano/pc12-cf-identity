@@ -31,7 +31,7 @@ Integrate with the existing Cardano Mendix plugin to leverage proven NFT managem
 - Related to: [[ISSUE-014-nft-ownership-verification-dapp]]
 
 ## Relationships
-- Depends on: [[ISSUE-001-veridian-platform-integration-research]]
+- ✅ Unblocked by: [[ISSUE-001-veridian-platform-integration-research]] (Research complete - hybrid QR approach confirmed)
 - Blocks: [[ISSUE-013-nft-keri-identity-binding]]
 - Blocks: [[ISSUE-014-nft-ownership-verification-dapp]]
 - Implements: [[Epic4-NFT-Ownership-Verification]]
@@ -42,15 +42,17 @@ Must leverage existing Cardano plugin while maintaining strict security boundari
 
 ## Acceptance Criteria
 - [ ] Existing Cardano plugin capabilities are thoroughly analyzed and documented
-- [ ] Integration architecture maintains strict security boundaries
-- [ ] NFT querying functionality is integrated without compromising security
-- [ ] Wallet interoperability features work seamlessly with existing plugin
-- [ ] Isolated execution contexts prevent security leaks between systems
-- [ ] Integration testing validates compatibility with existing functionality
-- [ ] Security review confirms no privilege escalation risks
+- [ ] Integration architecture maintains strict security boundaries with hybrid approach
+- [ ] NFT querying functionality works with linked Veridian accounts (no direct wallet access)
+- [ ] Wallet interoperability features integrate through account linking (not direct connection)
+- [ ] Isolated execution contexts prevent security leaks between Mendix and Veridian systems
+- [ ] Integration testing validates compatibility with hybrid QR linking approach
+- [ ] Security review confirms no privilege escalation risks in hybrid architecture
 - [ ] Performance impact is minimal on existing Cardano operations
 - [ ] Error handling maintains security boundaries in failure scenarios
-- [ ] Documentation covers integration patterns and security considerations
+- [ ] Documentation covers hybrid integration patterns and security considerations
+- [ ] NFT metadata extraction works through linked account relationships
+- [ ] KERI AID binding to NFTs verified through account linkage validation
 
 ## Implementation Log
 <!-- Auto-generated log of actual development work performed by the LLM -->

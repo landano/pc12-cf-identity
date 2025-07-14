@@ -7,7 +7,9 @@
 **Labels:** frontend, ui, representative, identity, signify
 
 ## Description
-Create the Mendix user interface for representatives to create their digital identities using Signify through the Veridian Identity Wallet. This interface must ensure private keys never leave user devices while providing a seamless user experience.
+Create the Mendix user interface for representatives to create their digital identities using the **hybrid QR code linking approach** with Veridian Identity Wallet. This interface facilitates identity creation in the Veridian mobile app while maintaining KERI edge protection and providing seamless account linking with Mendix.
+
+**🔧 Updated based on ISSUE-001 research**: Implementation uses hybrid architecture where identity creation occurs in Veridian mobile app via QR code challenge-response, ensuring private keys never leave mobile device.
 
 ## Tasks
 - [ ] Design representative identity creation form
@@ -29,8 +31,8 @@ Create the Mendix user interface for representatives to create their digital ide
 - Related to: [[ISSUE-004-identity-management-dashboard]]
 
 ## Relationships
-- Depends on: [[ISSUE-001-veridian-platform-integration-research]]
-- Depends on: [[ISSUE-002-chief-identity-creation-ui]]
+- ✅ Unblocked by: [[ISSUE-001-veridian-platform-integration-research]] (Research complete - hybrid QR approach confirmed)
+- Depends on: [[ISSUE-002-chief-identity-creation-ui]] (for consistent UI patterns)
 - Blocks: [[ISSUE-006-credential-reception-by-representative]]
 - Implements: [[Epic1-Identity-Creation-Management]]
 
@@ -39,16 +41,18 @@ Create the Mendix user interface for representatives to create their digital ide
 Representative identity creation must prioritize edge protection - private keys must never leave user devices per KERI protocol requirements.
 
 ## Acceptance Criteria
-- [ ] Representative identity creation form is intuitive and responsive
-- [ ] Signify integration ensures private keys never leave user device
-- [ ] Identity data validation prevents invalid submissions
-- [ ] Connection flow successfully links representative to chief identity
-- [ ] Error handling provides clear, actionable feedback
-- [ ] Form supports required fields (name, role, chief reference)
+- [ ] QR code linking interface is intuitive and explains representative process
+- [ ] QR code generation includes secure challenge and expires within 10 minutes
+- [ ] Veridian mobile app integration ensures private keys never leave device
+- [ ] Account linking flow successfully connects representative to chief identity
+- [ ] Error handling provides clear feedback for QR code and linking issues
+- [ ] Form supports required fields (name, role, chief reference) via QR data
 - [ ] UI follows Mendix design standards and accessibility guidelines
-- [ ] Identity creation generates valid AID linked to chief's AID
-- [ ] Veridian Identity Wallet integration is seamless
-- [ ] Success flow confirms identity creation and navigates to dashboard
+- [ ] Identity creation generates valid AID in Veridian app linked to chief's AID
+- [ ] Hybrid architecture maintains KERI edge protection throughout
+- [ ] Success flow confirms account linkage and navigates to dashboard
+- [ ] Challenge-response authentication validates representative identity
+- [ ] Connection to chief's AID is cryptographically verified
 
 ## Implementation Log
 <!-- Auto-generated log of actual development work performed by the LLM -->

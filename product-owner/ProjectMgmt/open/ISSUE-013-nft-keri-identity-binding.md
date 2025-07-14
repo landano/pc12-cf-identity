@@ -29,7 +29,7 @@ Implement the cryptographic binding mechanism between Landano NFTs and KERI iden
 - Related to: [[ISSUE-015-cardano-plugin-integration]]
 
 ## Relationships
-- Depends on: [[ISSUE-001-veridian-platform-integration-research]]
+- ✅ Unblocked by: [[ISSUE-001-veridian-platform-integration-research]] (Research complete - hybrid QR approach confirmed)
 - Depends on: [[ISSUE-002-chief-identity-creation-ui]]
 - Depends on: [[ISSUE-003-representative-identity-creation-ui]]
 - Blocks: [[ISSUE-014-nft-ownership-verification-dapp]]

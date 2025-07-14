@@ -36,5 +36,17 @@ Implement comprehensive KERI edge protection ensuring private keys never leave u
 ### 2025-07-14 - Dorus van der Kroft
 Edge protection is fundamental to KERI security model. Must ensure private keys never leave user devices under any circumstances.
 
+## Acceptance Criteria
+- [ ] Private keys are never transmitted or stored outside user devices
+- [ ] Hardware Security Module (HSM) integration is functional
+- [ ] Key generation uses cryptographically secure random number generation
+- [ ] Key rotation mechanism supports KERI protocol requirements
+- [ ] All cryptographic operations are validated against KERI standards
+- [ ] Edge protection audit logging captures all security events
+- [ ] Security implementation passes penetration testing
+- [ ] Documentation includes threat model and security controls
+- [ ] Integration with Signify client library is complete
+- [ ] Backup and recovery procedures for keys are documented
+
 ## Implementation Log
 <!-- Auto-generated log of actual development work performed by the LLM -->

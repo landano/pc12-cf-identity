@@ -37,5 +37,17 @@ Create the Mendix user interface for village chiefs to create their digital iden
 ### 2025-07-14 - Dorus van der Kroft
 Chief identity creation is critical as it establishes the root-of-trust for the entire credential system. Must prioritize security and user experience.
 
+## Acceptance Criteria
+- [ ] Chief identity creation form is intuitive and user-friendly
+- [ ] Form validation prevents invalid or incomplete identity data
+- [ ] Integration with Veridian KERIA service is functional
+- [ ] Error handling provides clear, actionable feedback to users
+- [ ] Identity confirmation flow verifies successful creation
+- [ ] Form supports required identity fields (name, role, jurisdiction)
+- [ ] UI follows Mendix design standards and accessibility guidelines
+- [ ] Identity creation generates valid AID (Autonomous Identifier)
+- [ ] Success flow redirects to identity management dashboard
+- [ ] All user interactions are logged for audit purposes
+
 ## Implementation Log
 <!-- Auto-generated log of actual development work performed by the LLM -->

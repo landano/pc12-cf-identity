@@ -3,7 +3,7 @@
 **Status:** Open
 **Created:** 2025-07-14
 **Assignee:** Unassigned
-**Priority:** Medium
+**Priority:** High
 **Labels:** credential, status, management, revocation, lifecycle
 
 ## Description

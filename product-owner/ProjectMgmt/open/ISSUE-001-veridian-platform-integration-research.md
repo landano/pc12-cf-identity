@@ -37,5 +37,15 @@ Research and document the integration approach for the Veridian platform within 
 ### 2025-07-14 - Dorus van der Kroft
 Created as foundational research issue for Epic 1. This must be completed before any identity creation features can be implemented.
 
+## Acceptance Criteria
+- [ ] Veridian API documentation is thoroughly analyzed and documented
+- [ ] KERI protocol implementation requirements are clearly defined
+- [ ] Mendix integration patterns are documented with code examples
+- [ ] Security architecture includes private key protection specification
+- [ ] Technical integration specification is complete and reviewed
+- [ ] Edge protection requirements are validated against KERI standards
+- [ ] Documentation includes API endpoints, authentication methods, and data formats
+- [ ] Integration patterns cover both KERIA (cloud agent) and Signify (client-side) components
+
 ## Implementation Log
 <!-- Auto-generated log of actual development work performed by the LLM -->

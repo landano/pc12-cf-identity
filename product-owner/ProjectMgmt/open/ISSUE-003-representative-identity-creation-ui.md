@@ -38,5 +38,17 @@ Create the Mendix user interface for representatives to create their digital ide
 ### 2025-07-14 - Dorus van der Kroft
 Representative identity creation must prioritize edge protection - private keys must never leave user devices per KERI protocol requirements.
 
+## Acceptance Criteria
+- [ ] Representative identity creation form is intuitive and responsive
+- [ ] Signify integration ensures private keys never leave user device
+- [ ] Identity data validation prevents invalid submissions
+- [ ] Connection flow successfully links representative to chief identity
+- [ ] Error handling provides clear, actionable feedback
+- [ ] Form supports required fields (name, role, chief reference)
+- [ ] UI follows Mendix design standards and accessibility guidelines
+- [ ] Identity creation generates valid AID linked to chief's AID
+- [ ] Veridian Identity Wallet integration is seamless
+- [ ] Success flow confirms identity creation and navigates to dashboard
+
 ## Implementation Log
 <!-- Auto-generated log of actual development work performed by the LLM -->

@@ -3,7 +3,7 @@
 **Status:** Open
 **Created:** 2025-07-14
 **Assignee:** Unassigned
-**Priority:** High
+**Priority:** Medium
 **Labels:** trust-chain, validation, keri, cryptography, security
 
 ## Description

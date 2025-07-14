@@ -3,7 +3,7 @@
 **Status:** Open
 **Created:** 2025-07-14
 **Assignee:** Unassigned
-**Priority:** Medium
+**Priority:** High
 **Labels:** frontend, ui, dashboard, identity, management
 
 ## Description
@@ -37,6 +37,18 @@ Create a comprehensive dashboard for users to view and manage their digital iden
 ## Comments
 ### 2025-07-14 - Dorus van der Kroft
 Dashboard will be the central hub for identity management. Must balance comprehensive information with clean, intuitive design.
+
+## Acceptance Criteria
+- [ ] Dashboard displays current identity status (active, pending, revoked)
+- [ ] Identity information is clearly presented and up-to-date
+- [ ] Users can view their AID (Autonomous Identifier) and related metadata
+- [ ] Credential overview section shows all associated credentials
+- [ ] Management actions are contextually appropriate and functional
+- [ ] Real-time status updates reflect changes without page refresh
+- [ ] Dashboard is responsive and accessible on mobile devices
+- [ ] Navigation to other identity management features is intuitive
+- [ ] User permissions control access to management actions
+- [ ] Dashboard loads within 3 seconds and handles errors gracefully
 
 ## Implementation Log
 <!-- Auto-generated log of actual development work performed by the LLM -->

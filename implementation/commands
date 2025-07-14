@@ -1,0 +1,202 @@
+# /start
+You are an Implementation Team Member for the Landano Veridian Identity Module project. Your role is to execute technical implementation of sprint issues while maintaining high security and quality standards.
+
+Key responsibilities:
+- Execute sprint issues with security-first approach
+- Follow KERI protocol requirements for edge protection
+- Integrate with Mendix platform and existing systems
+- Log all implementation work in issue files
+- Maintain code quality and testing standards
+
+Read @implementation/HowToImplementThisProject.md for your complete context and guidelines.
+
+# /currentSprint
+Show current sprint details including:
+- Sprint timeline and goals
+- All sprint-ready issues with priorities
+- Your assigned issues (if any)
+- Sprint progress overview
+- Next sprint preparation items
+
+# /sprintStatus
+Display current sprint status including:
+- Issues in each state (open, wip, closed)
+- Your active issues and progress
+- Blocked issues requiring attention
+- Sprint completion percentage
+- Risk factors and mitigation needed
+
+# /startWork
+Start work on a specific sprint issue. Usage: /startWork ISSUE-XXX
+This will:
+- Move issue from open to wip directory
+- Update status to WIP
+- Assign issue to you
+- Add comment indicating work start
+- Git commit the status change
+- Display issue details and acceptance criteria
+
+# /updateProgress
+Update progress on an active issue. Usage: /updateProgress ISSUE-XXX
+This will:
+- Show current task completion status
+- Allow you to mark tasks as complete
+- Add progress comment with timestamp
+- Update Implementation Log with work performed
+- Git commit the progress update
+
+# /completeIssue
+Mark an issue as complete. Usage: /completeIssue ISSUE-XXX
+This will:
+- Verify all acceptance criteria are met
+- Move issue from wip to closed directory
+- Update status to Closed
+- Add completion comment
+- Git commit the closure
+- Display issues that are now unblocked
+
+# /viewIssue
+Display detailed issue information. Usage: /viewIssue ISSUE-XXX
+Shows:
+- Issue description and acceptance criteria
+- Current status and assignee
+- Task completion status
+- Dependencies and relationships
+- Implementation log history
+- Related epic and milestone information
+
+# /myIssues
+Display all issues assigned to you including:
+- Active WIP issues with progress
+- Completed issues for reference
+- Blocked issues requiring attention
+- Task completion summary
+- Time estimates and deadlines
+
+# /sprintBacklog
+Show all sprint-ready issues available for implementation:
+- Issues by priority level
+- Dependencies and blockers
+- Acceptance criteria summary
+- Complexity estimates
+- Recommended next issues to tackle
+
+# /accessDocs
+Quick access to project documentation:
+- Project overview and context
+- Current sprint summary
+- Epic specifications
+- Technical architecture docs
+- Security requirements
+- Code quality standards
+
+# /research
+Access research materials and findings:
+- Technical research in shared/research/
+- Integration specifications
+- Security analysis
+- Performance requirements
+- Design decisions and rationale
+
+# /logWork
+Log implementation work in an issue. Usage: /logWork ISSUE-XXX
+This will:
+- Prompt for work description
+- Record files modified
+- Document commands run
+- Log results and outcomes
+- Add timestamp and attribution
+- Git commit the log entry
+
+# /checkSecurity
+Validate security requirements for an issue. Usage: /checkSecurity ISSUE-XXX
+This will:
+- Review security acceptance criteria
+- Check KERI edge protection requirements
+- Validate transport security implementation
+- Verify authentication and authorization
+- Check audit logging requirements
+- Generate security compliance report
+
+# /runTests
+Execute tests for current work. Usage: /runTests [ISSUE-XXX]
+This will:
+- Run relevant test suites
+- Execute security tests
+- Validate integration tests
+- Check code quality metrics
+- Log test results in implementation log
+- Report any failures for resolution
+
+# /codeReview
+Request code review for an issue. Usage: /codeReview ISSUE-XXX
+This will:
+- Validate all acceptance criteria
+- Check code quality standards
+- Review security implementation
+- Verify test coverage
+- Generate review checklist
+- Prepare for team review
+
+# /blocked
+Report a blocking issue. Usage: /blocked ISSUE-XXX "reason"
+This will:
+- Update issue status to blocked
+- Add blocking comment with reason
+- Notify project management
+- Log blocking timestamp
+- Suggest alternative work items
+- Git commit the blocking status
+
+# /dependencies
+Show dependency information for issues:
+- Current issue dependencies
+- Issues blocked by your work
+- Dependency chain visualization
+- Critical path analysis
+- Recommended work order
+
+# /quality
+Check code quality metrics:
+- Code coverage reports
+- Security vulnerability scans
+- Performance benchmarks
+- Mendix platform compliance
+- Integration test results
+- Documentation completeness
+
+# /deploy
+Deploy completed work to staging/testing:
+- Validate all acceptance criteria
+- Run complete test suite
+- Deploy to staging environment
+- Validate deployment
+- Update issue with deployment status
+- Notify team of deployment
+
+# /handoff
+Prepare work for team handoff:
+- Document current state
+- Update implementation logs
+- Prepare knowledge transfer
+- Create handoff checklist
+- Update issue with handoff status
+- Schedule handoff meeting
+
+# /mentor
+Get guidance on implementation approach:
+- Review technical approach
+- Validate security implementation
+- Check integration patterns
+- Discuss best practices
+- Review code quality
+- Get feedback on progress
+
+# /emergency
+Handle urgent issues or blockers:
+- Escalate critical blockers
+- Report security concerns
+- Request immediate assistance
+- Notify project management
+- Document emergency actions
+- Follow emergency procedures

@@ -1,125 +1,290 @@
 # Mendix Integration Patterns for Veridian Identity Platform
 
 ## Overview
-This document defines integration patterns for implementing the Veridian Identity platform within the Mendix low-code architecture for the Landano land rights NFT verification system.
+This document defines integration patterns for implementing the Veridian Identity platform within the Mendix low-code architecture for the Landano land rights NFT verification system using a **hybrid QR code linking approach** that maintains KERI edge protection.
 
-## Core Integration Architecture
+## ⚠️ **CRITICAL ARCHITECTURAL PRINCIPLE**
+**Private keys NEVER leave the Veridian mobile app.** All cryptographic operations occur on the user's mobile device. Mendix serves only as a business logic layer and secure data coordinator.
 
-### 1. Mendix Platform Integration Points
+## Core Integration Architecture - Hybrid QR Code Linking
 
-#### Module Structure
+### 1. Architectural Overview
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    HYBRID ARCHITECTURE                         │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  Veridian Mobile App (Edge)     ↔     Mendix Web App (Cloud)   │
+│  ├── Private keys stored                ├── Business logic      │
+│  ├── All signing operations             ├── User interface      │
+│  ├── KERI AID management                ├── Data management     │
+│  └── QR code scanning                   └── QR code generation │
+│                                                                 │
+│           Connection via QR Code Challenge-Response            │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### 2. Mendix Platform Integration Points
+
+#### Module Structure (Revised for Hybrid Approach)
 ```
 LandanoVeridianIdentity/
 ├── JavaActions/
-│   ├── KERIIdentityManager.java
-│   ├── VeridianAPIConnector.java
-│   └── CardanoWalletBridge.java
+│   ├── QRCodeGenerator.java              // Generate linking QR codes
+│   ├── SignatureVerifier.java            // Verify KERI signatures
+│   ├── ChallengeManager.java             // Manage auth challenges
+│   └── CardanoNFTQuerier.java            // Query NFT ownership
 ├── Resources/
-│   ├── signify-client.js
-│   └── veridian-integration.js
+│   ├── qr-code-display.js                // QR code UI handling
+│   └── signature-validation.js           // Client-side validation
 ├── Microflows/
-│   ├── CreateChiefIdentity.mf
-│   ├── CreateRepresentativeIdentity.mf
-│   └── VerifyNFTOwnership.mf
+│   ├── InitiateAccountLinking.mf         // Start QR linking process
+│   ├── VerifyAccountConnection.mf        // Verify signed response
+│   └── VerifyNFTOwnership.mf             // Validate NFT ownership
+├── REST/
+│   ├── VeridianLinkingService.published  // Callback endpoints
+│   └── NFTVerificationService.published  // Verification APIs
 └── Pages/
-    ├── IdentityManagement.page.xml
-    └── NFTVerification.page.xml
+    ├── AccountLinking.page.xml           // QR code display
+    └── NFTVerification.page.xml          // Verification UI
 ```
 
-#### Java Action Integration
+### 3. QR Code Linking Implementation
+
+#### Challenge Generation (Mendix Server-Side)
 ```java
-public class KERIIdentityManager extends CoreJavaAction<String> {
-    private String keriaSeverUrl;
-    private String bootUrl;
+@UserAction
+public class GenerateAccountLinkingChallenge extends CoreJavaAction<String> {
+    
+    @JavaActionParameter
+    private IMendixObject currentUser;
     
     @Override
     public String executeAction() throws Exception {
-        // Initialize Signify client through JavaScript bridge
-        return executeJavaScript("initializeSignifyClient", 
-            keriaSeverUrl, bootUrl);
+        try {
+            // Generate cryptographically secure challenge
+            String challenge = generateSecureChallenge();
+            String sessionId = UUID.randomUUID().toString();
+            String encryptedUserId = encryptUserId(currentUser.getId());
+            
+            // Create QR code data
+            QRCodeData qrData = QRCodeData.builder()
+                .version("1.0")
+                .type("landano_account_linking")
+                .challenge(challenge)
+                .sessionId(sessionId)
+                .callbackUrl("https://api.landano.io/veridian/link")
+                .expiresAt(Instant.now().plus(Duration.ofMinutes(10)))
+                .mendixUserId(encryptedUserId)
+                .build();
+            
+            // Store pending challenge for verification
+            storePendingChallenge(challenge, sessionId, currentUser.getId());
+            
+            // Generate QR code image
+            return generateQRCodeImage(qrData.toJson());
+            
+        } catch (Exception e) {
+            logger.error("Failed to generate linking challenge", e);
+            throw new UserException("Failed to generate QR code: " + e.getMessage());
+        }
     }
 }
 ```
 
-### 2. Veridian API Integration Patterns
-
-#### REST Connector Configuration
-```xml
-<rest-service name="VeridianAPI">
-    <base-url>https://api.veridian.id</base-url>
-    <authentication type="custom">
-        <header name="Signify-Resource" value="{resource}"/>
-        <header name="Signify-Timestamp" value="{timestamp}"/>
-        <header name="Signature-Input" value="{signature}"/>
-    </authentication>
-</rest-service>
-```
-
-#### Microflow Integration
-```
-CreateChiefIdentity:
-1. ValidateUserPermissions
-2. GenerateKERIKeyPair (JavaAction)
-3. CreateIdentifierInception (REST Call)
-4. SignInceptionEvent (JavaScript)
-5. SubmitToKERIA (REST Call)
-6. StoreIdentifierMetadata (Database)
-7. ReturnSuccessResponse
-```
-
-### 3. KERI Protocol Implementation
-
-#### AID Creation Pattern
-```javascript
-// JavaScript snippet for Mendix pages
-async function createKERIIdentifier(name, witnesses) {
-    const client = await initializeSignifyClient();
+#### Signature Verification (Mendix Server-Side)
+```java
+@RestController
+@RequestMapping("/veridian")
+public class VeridianLinkingController {
     
-    const identifier = await client.identifiers().create({
-        name: name,
-        witnesses: witnesses,
-        thold: Math.ceil(witnesses.length / 2)
-    });
-    
-    return {
-        prefix: identifier.prefix,
-        state: identifier.state,
-        witnesses: identifier.witnesses
-    };
+    @PostMapping("/link")
+    public ResponseEntity<LinkingResponse> verifyAccountLink(@RequestBody LinkingRequest request) {
+        try {
+            // Extract signature components
+            String challenge = request.getChallenge();
+            String sessionId = request.getSessionId();
+            String veridianAID = request.getVeridianAID();
+            String signature = request.getSignature();
+            String signedData = request.getSignedData();
+            
+            // Validate challenge exists and is not expired
+            PendingChallenge pendingChallenge = validateAndRetrieveChallenge(challenge, sessionId);
+            if (pendingChallenge == null || pendingChallenge.isExpired()) {
+                return ResponseEntity.badRequest().body(
+                    new LinkingResponse(false, "Invalid or expired challenge"));
+            }
+            
+            // Verify KERI signature (NO PRIVATE KEY OPERATIONS ON SERVER)
+            boolean signatureValid = verifyKERISignature(signedData, signature, veridianAID);
+            
+            // Validate AID with KERIA witnesses
+            boolean aidValid = validateAIDWithWitnesses(veridianAID);
+            
+            if (signatureValid && aidValid) {
+                // Create permanent account link
+                createAccountLink(pendingChallenge.getMendixUserId(), veridianAID, signature);
+                
+                // Clean up pending challenge
+                deletePendingChallenge(challenge, sessionId);
+                
+                return ResponseEntity.ok(new LinkingResponse(true, "Account linked successfully"));
+            } else {
+                return ResponseEntity.badRequest().body(
+                    new LinkingResponse(false, "Signature verification failed"));
+            }
+            
+        } catch (Exception e) {
+            logger.error("Account linking failed", e);
+            return ResponseEntity.internalServerError().body(
+                new LinkingResponse(false, "Internal server error"));
+        }
+    }
 }
 ```
 
-#### Credential Issuance Pattern
+### 4. Account Linking Workflow
+
+#### Complete Linking Process
+```
+Mendix Web App                          Veridian Mobile App
+├── 1. User clicks "Link Account"       ├── 8. User scans QR code
+├── 2. Generate challenge + session     ├── 9. Parse QR code data
+├── 3. Create QR code                   ├── 10. Display link confirmation
+├── 4. Display QR code                  ├── 11. User confirms linking
+├── 5. Wait for mobile response         ├── 12. Sign challenge with AID
+├── 6. Receive signed response          ├── 13. POST to callback URL
+├── 7. Verify signature                 ├── 14. Receive confirmation
+└── 15. Account successfully linked     └── 15. Display success message
+```
+
+### 5. Data Management Patterns
+
+#### Entity Model (Revised for Hybrid Approach)
+```
+Entity: VeridianAccountLink
+- LinkID (String, Key)
+- MendixUserID (String)
+- VeridianAID (String) // KERI Identifier
+- LinkSignature (String) // Proof of linking
+- LinkTimestamp (DateTime)
+- LastVerified (DateTime)
+- Status (Enum: Active, Expired, Revoked)
+- WitnessReceipts (String, JSON)
+
+Entity: PendingChallenge
+- ChallengeID (String, Key)
+- SessionID (String)
+- Challenge (String)
+- MendixUserID (String)
+- ExpiresAt (DateTime)
+- CreatedAt (DateTime)
+
+Entity: NFTVerificationResult
+- VerificationID (String, Key)
+- MendixUserID (String)
+- VeridianAID (String)
+- PolicyID (String)
+- AssetName (String)
+- VerificationResult (Boolean)
+- VerificationTimestamp (DateTime)
+- CardanoAddress (String)
+```
+
+### 6. NFT Verification Integration
+
+#### NFT Ownership Verification (Leveraging Linked Account)
 ```java
-public class ACDCCredentialIssuer extends CoreJavaAction<String> {
-    public String executeAction() throws Exception {
-        Map<String, Object> credentialData = new HashMap<>();
-        credentialData.put("schema", schemaId);
-        credentialData.put("issuer", issuerAID);
-        credentialData.put("holder", holderAID);
-        credentialData.put("attributes", landRightsData);
+@UserAction
+public class VerifyNFTOwnership extends CoreJavaAction<Boolean> {
+    
+    @JavaActionParameter
+    private String policyId;
+    
+    @JavaActionParameter
+    private String assetName;
+    
+    @JavaActionParameter
+    private IMendixObject currentUser;
+    
+    @Override
+    public Boolean executeAction() throws Exception {
+        try {
+            // Get linked Veridian account
+            VeridianAccountLink accountLink = getLinkedAccount(currentUser.getId());
+            if (accountLink == null || !accountLink.isActive()) {
+                throw new UserException("No active Veridian account linked");
+            }
+            
+            // Query NFT metadata from Cardano
+            NFTMetadata nftMetadata = queryNFTMetadata(policyId, assetName);
+            if (nftMetadata == null) {
+                return false;
+            }
+            
+            // Extract KERI AID from NFT metadata
+            String nftKeriAID = nftMetadata.getKeriAID();
+            if (nftKeriAID == null) {
+                return false;
+            }
+            
+            // Verify AID matches linked account
+            boolean aidMatches = accountLink.getVeridianAID().equals(nftKeriAID);
+            
+            // Additional verification: Query Cardano wallet for NFT ownership
+            boolean walletOwnsNFT = verifyWalletOwnership(policyId, assetName, accountLink.getVeridianAID());
+            
+            // Store verification result
+            storeVerificationResult(currentUser.getId(), accountLink.getVeridianAID(), 
+                                 policyId, assetName, aidMatches && walletOwnsNFT);
+            
+            return aidMatches && walletOwnsNFT;
+            
+        } catch (Exception e) {
+            logger.error("NFT ownership verification failed", e);
+            throw new UserException("Verification failed: " + e.getMessage());
+        }
+    }
+}
+```
+
+### 7. Security Implementation (Hybrid Approach)
+
+#### ⚠️ **NO PRIVATE KEY OPERATIONS ON MENDIX SERVER**
+```java
+public class SecureSignatureVerifier {
+    
+    // ONLY public key operations allowed on server
+    public boolean verifyKERISignature(String signedData, String signature, String aid) {
+        try {
+            // Retrieve public key from KERIA (NOT private key)
+            PublicKey publicKey = retrievePublicKeyFromKERIA(aid);
+            
+            // Verify signature using public key only
+            Signature verifier = Signature.getInstance("Ed25519");
+            verifier.initVerify(publicKey);
+            verifier.update(signedData.getBytes());
+            
+            return verifier.verify(Base64.getDecoder().decode(signature));
+            
+        } catch (Exception e) {
+            logger.error("Signature verification failed for AID: {}", aid, e);
+            return false;
+        }
+    }
+    
+    // NO PRIVATE KEY STORAGE - Only metadata storage
+    public void storeAccountLinkMetadata(String mendixUserId, String veridianAID, String linkSignature) {
+        AccountLinkEntity entity = new AccountLinkEntity();
+        entity.setMendixUserId(mendixUserId);
+        entity.setVeridianAID(veridianAID);  // Public identifier
+        entity.setLinkSignature(linkSignature);  // Proof of linking
+        entity.setTimestamp(Instant.now());
         
-        return callVeridianAPI("POST", "/credentials/issue", credentialData);
-    }
-}
-```
-
-### 4. Security Architecture Integration
-
-#### Edge Protection Implementation
-```java
-public class EdgeProtectionManager {
-    private static final String KEYSTORE_PATH = "conf/keri-keystore.jks";
-    
-    public KeyPair generateSecureKeyPair() {
-        // Use Mendix's secure key generation
-        return SecurityUtils.generateKeyPair("Ed25519");
-    }
-    
-    public void storePrivateKey(String aid, PrivateKey key) {
-        // Encrypt and store in Mendix encrypted database
-        EncryptedData encryptedKey = MendixSecurity.encrypt(key);
-        persistToDatabase(aid, encryptedKey);
+        // NO PRIVATE KEYS STORED - Only public identifiers and proofs
+        accountLinkRepository.save(entity);
     }
 }
 ```

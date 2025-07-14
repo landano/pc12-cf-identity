@@ -1,7 +1,10 @@
 # Technical Integration Specification - Veridian Identity Platform
 
 ## Document Overview
-This comprehensive technical specification defines the integration approach for the Veridian Identity platform within the Mendix architecture for the Landano land rights NFT verification system, incorporating KERI protocol compliance and enterprise-grade security.
+This comprehensive technical specification defines the **hybrid QR code linking integration** approach for the Veridian Identity platform within the Mendix architecture for the Landano land rights NFT verification system, incorporating KERI protocol compliance and enterprise-grade security while maintaining edge protection.
+
+## ⚠️ **ARCHITECTURAL CORRECTION**
+**This specification has been updated to reflect a hybrid approach where private keys NEVER leave the Veridian mobile app.** The original server-side key management approach has been replaced with QR code challenge-response linking that maintains KERI edge protection principles.
 
 ## Table of Contents
 1. [Architecture Overview](#architecture-overview)
@@ -17,52 +20,73 @@ This comprehensive technical specification defines the integration approach for 
 
 ## 1. Architecture Overview
 
-### 1.1 System Architecture
+### 1.1 Hybrid System Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    Mendix Application Layer                     │
+│                    HYBRID ARCHITECTURE                         │
 ├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  Veridian Mobile App (Edge)     ↔     Mendix Web App (Cloud)   │
+│  ├── Private keys stored               ├── Business logic       │
+│  ├── All signing operations            ├── User interface       │
+│  ├── KERI AID management               ├── Data management      │
+│  ├── QR code scanning                  ├── QR code generation   │
+│  └── Credential presentation           └── Signature verification│
+│                                                                 │
+│           Connection: QR Code Challenge-Response               │
+│                                                                 │
+├─────────────────────────────────────────────────────────────────┤
+│                    Integration Layers                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  Mendix Application Layer                                       │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────┐ │
-│  │  Identity   │  │ Credential  │  │ Verification│  │  Audit  │ │
-│  │ Management  │  │ Management  │  │   Engine    │  │ Service │ │
+│  │   Account   │  │    QR Code  │  │ Verification│  │  Audit  │ │
+│  │   Linking   │  │  Challenge  │  │   Engine    │  │ Service │ │
 │  └─────────────┘  └─────────────┘  └─────────────┘  └─────────┘ │
-├─────────────────────────────────────────────────────────────────┤
-│                 Veridian Integration Layer                      │
-├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  Veridian Integration Layer (Public Operations Only)           │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────┐ │
-│  │   KERIA     │  │   Signify   │  │   ACDC      │  │  KERI   │ │
-│  │ Cloud Agent │  │   Client    │  │ Credentials │  │Protocol │ │
+│  │   KERIA     │  │  Signature  │  │   Public    │  │  KERI   │ │
+│  │Query Agent  │  │Verification │  │Verification │  │Protocol │ │
 │  └─────────────┘  └─────────────┘  └─────────────┘  └─────────┘ │
-├─────────────────────────────────────────────────────────────────┤
-│                  Cardano Integration Layer                      │
-├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  Cardano Integration Layer                                      │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────┐ │
-│  │   CIP-30    │  │     NFT     │  │   Policy    │  │ Wallet  │ │
-│  │  Connector  │  │  Metadata   │  │   Engine    │  │ Bridge  │ │
+│  │     NFT     │  │   Policy    │  │   Metadata  │  │ Balance │ │
+│  │   Querying  │  │   Engine    │  │  Extraction │  │Verification│
 │  └─────────────┘  └─────────────┘  └─────────────┘  └─────────┘ │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
 ### 1.2 Component Responsibilities
 
-#### Mendix Application Layer
-- **Identity Management**: User interface for KERI identifier creation and management
-- **Credential Management**: ACDC credential issuance and verification workflows
-- **Verification Engine**: NFT ownership verification and validation logic
+#### Veridian Mobile App (Edge Layer) - **PRIVATE KEY OPERATIONS**
+- **Private Key Storage**: Secure storage and management of KERI private keys
+- **Cryptographic Signing**: All signature operations using Signify library
+- **KERI AID Management**: Identifier creation, rotation, and recovery
+- **QR Code Scanning**: Challenge-response authentication with Mendix
+- **Credential Presentation**: ACDC credential presentation workflows
+
+#### Mendix Application Layer - **PUBLIC OPERATIONS ONLY**
+- **Account Linking**: QR code generation and verification workflows
+- **Business Logic**: User interface and workflow management
+- **Data Management**: Storage of public identifiers and verification results
+- **NFT Verification**: Ownership validation logic (using linked accounts)
 - **Audit Service**: Security event logging and compliance monitoring
 
-#### Veridian Integration Layer
-- **KERIA Cloud Agent**: Multi-tenant KERI agent service on ports 3901-3903
-- **Signify Client**: Edge-based cryptographic operations and key management
-- **ACDC Credentials**: Verifiable credential management and presentation
-- **KERI Protocol**: Decentralized identifier protocol implementation
+#### Veridian Integration Layer - **PUBLIC VERIFICATION ONLY**
+- **KERIA Query Agent**: Public key retrieval and AID state verification
+- **Signature Verification**: Validate signatures using public keys only
+- **Public Verification**: Witness receipt validation and AID status checks
+- **KERI Protocol**: Public protocol operations (NO private key access)
 
 #### Cardano Integration Layer
-- **CIP-30 Connector**: Cardano wallet discovery and connection
-- **NFT Metadata**: Land rights NFT metadata parsing and validation
+- **NFT Querying**: Query NFT metadata and ownership from blockchain
 - **Policy Engine**: Landano-specific policy ID verification
-- **Wallet Bridge**: ADA wallet balance and ownership verification
+- **Metadata Extraction**: Extract KERI AID from NFT metadata
+- **Balance Verification**: Verify wallet balance claims
 
 ## 2. API Integration Specifications
 

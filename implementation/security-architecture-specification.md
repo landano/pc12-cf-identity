@@ -1,18 +1,22 @@
 # Security Architecture Specification - Veridian Identity Integration
 
 ## Executive Summary
-This document defines the comprehensive security architecture for integrating the Veridian Identity platform with the Mendix-based Landano land rights NFT verification system, with emphasis on KERI edge protection, transport security, and enterprise-grade cryptographic protection.
+This document defines the comprehensive security architecture for integrating the Veridian Identity platform with the Mendix-based Landano land rights NFT verification system using a **hybrid QR code linking approach** that maintains KERI edge protection, transport security, and enterprise-grade cryptographic protection.
+
+## ⚠️ **CRITICAL SECURITY PRINCIPLE**
+**Private keys NEVER leave the Veridian mobile app.** All cryptographic signing operations occur exclusively on user's mobile devices. Mendix servers perform ONLY public key verification and business logic operations.
 
 ## 1. Core Security Principles
 
-### 1.1 KERI Edge Protection
-**Principle**: Private keys never leave the edge device and are never transmitted or exposed outside their secure execution environment.
+### 1.1 KERI Edge Protection (Hybrid Implementation)
+**Principle**: Private keys never leave the Veridian mobile app and are never transmitted to or processed by Mendix servers.
 
 **Implementation Requirements**:
-- Private key generation and storage occurs exclusively on user devices
-- All cryptographic operations performed client-side using Signify library
-- Zero-trust architecture where cloud agents never possess decryption keys
-- Hardware Security Module (HSM) integration for enterprise deployments
+- Private key generation and storage occurs exclusively in Veridian mobile app
+- All cryptographic signing operations performed on mobile device using Signify library
+- Mendix servers perform ONLY signature verification using public keys
+- QR code challenge-response maintains edge protection while enabling account linking
+- Zero server-side private key storage or cryptographic signing operations
 
 ### 1.2 Zero-Trust Architecture
 **Principle**: Every request must be authenticated and authorized regardless of network location.
@@ -32,102 +36,178 @@ This document defines the comprehensive security architecture for integrating th
 - KERI's quantum-resistant key rotation mechanisms
 - Future-proof cryptographic agility
 
-## 2. Key Management Architecture
+## 2. Hybrid Key Management Architecture
 
-### 2.1 Key Generation and Storage
+### 2.1 Key Generation and Storage (Mobile-Only)
 
-#### Client-Side Key Generation
+#### ⚠️ **MOBILE-ONLY KEY OPERATIONS**
 ```javascript
-// Secure key generation using libsodium
-async function generateKERIKeyPair() {
+// ALL key operations happen ONLY in Veridian mobile app
+// NO KEY OPERATIONS ON MENDIX SERVER
+
+// Veridian Mobile App - Key Generation
+async function generateKERIKeyPairInMobileApp() {
     const seed = randomPasscode(); // 21-character CESR seed
     const keyPair = await sodium.crypto_sign_seed_keypair(seed);
     
-    // Store private key in secure browser storage
-    await storePrivateKeySecurely(keyPair.privateKey);
+    // Store private key ONLY in mobile secure storage
+    await storePrivateKeyInMobileSecureStorage(keyPair.privateKey);
     
     return {
         publicKey: keyPair.publicKey,
-        privateKeyReference: keyPair.privateKeyId // Never return actual private key
+        aid: generateAID(keyPair.publicKey)
+        // Private key NEVER returned or transmitted
     };
 }
 ```
 
-#### Secure Storage Implementation
+#### Mendix Server - Public Data Only
 ```java
-public class SecureKeyStorage {
-    private static final String KEYSTORE_TYPE = "PKCS12";
-    private static final String ALGORITHM = "AES-256-GCM";
+public class PublicDataManager {
+    // ONLY public information stored on Mendix server
     
-    public void storePrivateKey(String aid, PrivateKey key) {
-        // Encrypt private key using device-specific encryption
-        byte[] encryptedKey = MendixSecurity.encrypt(key.getEncoded(), 
-            getDeviceSpecificKey());
+    public void storeAccountLinkage(String mendixUserId, String veridianAID, String linkSignature) {
+        AccountLinkEntity entity = new AccountLinkEntity();
+        entity.setMendixUserId(mendixUserId);
+        entity.setVeridianAID(veridianAID);  // Public KERI identifier
+        entity.setLinkSignature(linkSignature);  // Proof of linking (not private key)
+        entity.setTimestamp(Instant.now());
         
-        // Store in encrypted database with AID as key
-        KeyStorageEntity entity = new KeyStorageEntity();
-        entity.setAID(aid);
-        entity.setEncryptedPrivateKey(Base64.encode(encryptedKey));
-        entity.setCreationTimestamp(System.currentTimeMillis());
-        
-        persistToSecureStorage(entity);
+        // NO PRIVATE KEYS - Only public identifiers and proof signatures
+        accountLinkRepository.save(entity);
     }
+    
+    // ❌ FORBIDDEN: No private key storage or operations
+    // ❌ FORBIDDEN: private void storePrivateKey(...) - NEVER IMPLEMENT
 }
 ```
 
-### 2.2 Key Rotation Mechanisms
+### 2.2 Key Rotation (Mobile-Only Operations)
 
-#### Pre-Rotation Implementation
-```java
-public class KeyRotationManager {
-    public RotationResult rotateKeys(String aid, String nextKeyCommitment) {
-        // Validate current key ownership
-        validateKeyOwnership(aid);
+#### Mobile App - Key Rotation Implementation
+```javascript
+// Key rotation happens ONLY in Veridian mobile app
+class MobileKeyRotationManager {
+    
+    async rotateKeysInMobile(aid, nextKeyCommitment) {
+        // ALL operations happen on mobile device
         
-        // Generate new key pair
-        KeyPair newKeyPair = generateSecureKeyPair();
+        // Validate current key ownership (mobile-side)
+        const currentPrivateKey = await getPrivateKeyFromMobileStorage(aid);
+        
+        // Generate new key pair (mobile-side)
+        const newKeyPair = await generateSecureKeyPairInMobile();
         
         // Create rotation event
-        RotationEvent event = new RotationEvent();
-        event.setAID(aid);
-        event.setPreviousKeyCommitment(getCurrentKeyCommitment(aid));
-        event.setNewPublicKey(newKeyPair.getPublic());
-        event.setNextKeyCommitment(nextKeyCommitment);
+        const rotationEvent = {
+            aid: aid,
+            previousKeyCommitment: await getCurrentKeyCommitment(aid),
+            newPublicKey: newKeyPair.publicKey,
+            nextKeyCommitment: nextKeyCommitment
+        };
         
-        // Sign rotation event with current private key
-        byte[] signature = signRotationEvent(event, getCurrentPrivateKey(aid));
+        // Sign rotation event with current private key (mobile-side)
+        const signature = await signRotationEventInMobile(rotationEvent, currentPrivateKey);
         
-        // Update key storage
-        updateKeyStorage(aid, newKeyPair, nextKeyCommitment);
+        // Update mobile key storage
+        await updateMobileKeyStorage(aid, newKeyPair, nextKeyCommitment);
         
-        return new RotationResult(event, signature);
+        // Notify Mendix server of public key change (public data only)
+        await notifyServerOfKeyRotation(aid, newKeyPair.publicKey, signature);
+        
+        return { success: true, newPublicKey: newKeyPair.publicKey };
     }
 }
 ```
 
-#### Key Recovery Procedures
+#### Mendix Server - Key Rotation Notification Handler
 ```java
-public class KeyRecoveryManager {
-    public RecoveryResult recoverFromCompromise(String aid, String recoveryProof) {
-        // Validate recovery authorization
-        validateRecoveryAuthorization(aid, recoveryProof);
+public class KeyRotationNotificationHandler {
+    
+    // ONLY handle public key updates - NO private key operations
+    public void handleKeyRotationNotification(String aid, String newPublicKey, String rotationSignature) {
         
-        // Retrieve pre-committed rotation keys
-        KeyPair recoveryKeys = getPreCommittedKeys(aid);
+        // Verify rotation signature using previous public key
+        boolean rotationValid = verifyRotationSignature(aid, newPublicKey, rotationSignature);
+        
+        if (rotationValid) {
+            // Update account link with new public key (public data only)
+            updateAccountLinkPublicKey(aid, newPublicKey);
+            
+            // Log key rotation event
+            auditLogger.logKeyRotation(aid, newPublicKey);
+        } else {
+            // Reject invalid key rotation
+            throw new SecurityException("Invalid key rotation signature");
+        }
+    }
+    
+    // ❌ FORBIDDEN: NO private key rotation operations on server
+}
+```
+
+#### Key Recovery (Mobile-Only Operations)
+```javascript
+// Key recovery happens ONLY in Veridian mobile app
+class MobileKeyRecoveryManager {
+    
+    async recoverFromCompromiseInMobile(aid, recoveryProof) {
+        // ALL recovery operations happen on mobile device
+        
+        // Validate recovery authorization (mobile-side)
+        const recoveryValid = await validateRecoveryAuthorizationInMobile(aid, recoveryProof);
+        if (!recoveryValid) {
+            throw new Error("Invalid recovery authorization");
+        }
+        
+        // Retrieve pre-committed rotation keys (mobile-side)
+        const recoveryKeys = await getPreCommittedKeysFromMobile(aid);
         
         // Create emergency rotation event
-        EmergencyRotationEvent event = new EmergencyRotationEvent();
-        event.setAID(aid);
-        event.setCompromiseTimestamp(System.currentTimeMillis());
-        event.setRecoveryKeys(recoveryKeys.getPublic());
+        const emergencyRotationEvent = {
+            aid: aid,
+            compromiseTimestamp: Date.now(),
+            recoveryPublicKey: recoveryKeys.publicKey,
+            eventType: "emergency_rotation"
+        };
         
-        // Sign with recovery keys
-        byte[] signature = signWithRecoveryKeys(event, recoveryKeys.getPrivate());
+        // Sign with recovery keys (mobile-side)
+        const signature = await signWithRecoveryKeysInMobile(emergencyRotationEvent, recoveryKeys.privateKey);
         
-        // Update KEL with recovery event
-        updateKeyEventLog(aid, event, signature);
+        // Update mobile key storage with recovery keys
+        await updateMobileKeyStorageWithRecovery(aid, recoveryKeys);
         
-        return new RecoveryResult(event, signature);
+        // Notify Mendix server of emergency rotation (public data only)
+        await notifyServerOfEmergencyRotation(aid, recoveryKeys.publicKey, signature);
+        
+        return { success: true, newPublicKey: recoveryKeys.publicKey };
+    }
+}
+```
+
+#### Mendix Server - Emergency Rotation Handler
+```java
+public class EmergencyRotationHandler {
+    
+    // ONLY handle emergency rotation notifications - NO private key operations
+    public void handleEmergencyRotation(String aid, String newPublicKey, String emergencySignature) {
+        
+        // Verify emergency rotation signature
+        boolean rotationValid = verifyEmergencyRotationSignature(aid, newPublicKey, emergencySignature);
+        
+        if (rotationValid) {
+            // Update account link with new public key
+            updateAccountLinkAfterEmergencyRotation(aid, newPublicKey);
+            
+            // Log emergency rotation event
+            auditLogger.logEmergencyRotation(aid, newPublicKey);
+            
+            // Alert security team
+            securityAlertService.sendEmergencyRotationAlert(aid);
+        } else {
+            // Reject invalid emergency rotation
+            throw new SecurityException("Invalid emergency rotation signature");
+        }
     }
 }
 ```

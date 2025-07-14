@@ -48,6 +48,11 @@ Created as foundational research issue for Epic 1. This must be completed before
 - [x] Edge protection requirements are validated against KERI standards
 - [x] Documentation includes API endpoints, authentication methods, and data formats
 - [x] Integration patterns cover both KERIA (cloud agent) and Signify (client-side) components
+- [ ] **Sandbox Testing**: All three sandbox URLs tested and validated
+- [ ] **Sandbox Testing**: API authentication verified in sandbox environment
+- [ ] **Sandbox Testing**: KERI protocol operations tested end-to-end
+- [ ] **Sandbox Testing**: Hybrid QR code linking tested in sandbox
+- [ ] **Sandbox Testing**: Edge protection patterns confirmed in sandbox
 
 ## Implementation Log
 <!-- Auto-generated log of actual development work performed by the LLM -->
@@ -118,3 +123,13 @@ All documentation ready for implementation team to begin development of identity
 - ✅ Transport security via TLS 1.3
 
 Architecture is now secure and compliant with KERI protocol requirements.
+
+### 2025-07-14 17:20 - Project Owner Update
+**Action**: Added Veridian Sandbox testing requirements
+**Sandbox Environment**: Access provided with three endpoints for testing
+**URLs Added**: 
+- Boot: https://keria-boot.demo.idw-sandboxes.cf-deployments.org
+- Connect: https://keria.demo.idw-sandboxes.cf-deployments.org
+- Credential UI: https://cred-issuance-ui.demo.idw-sandboxes.cf-deployments.org
+**Documentation**: Created comprehensive sandbox guide in shared/research/veridian-sandbox-environment.md
+**Next Steps**: Ready for sandbox validation testing to complete final acceptance criteria

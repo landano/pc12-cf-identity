@@ -53,6 +53,11 @@ Must leverage existing Cardano plugin while maintaining strict security boundari
 - [ ] Documentation covers hybrid integration patterns and security considerations
 - [ ] NFT metadata extraction works through linked account relationships
 - [ ] KERI AID binding to NFTs verified through account linkage validation
+- [ ] **Sandbox Testing**: NFT metadata queries tested with sandbox data
+- [ ] **Sandbox Testing**: Policy ID validation tested in sandbox environment
+- [ ] **Sandbox Testing**: Hybrid integration patterns validated
+- [ ] **Sandbox Testing**: Account linkage workflows tested end-to-end
+- [ ] **Sandbox Testing**: Error handling tested with sandbox constraints
 
 ## Implementation Log
 <!-- Auto-generated log of actual development work performed by the LLM -->

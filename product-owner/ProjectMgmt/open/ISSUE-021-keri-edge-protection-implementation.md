@@ -54,6 +54,11 @@ Edge protection is fundamental to KERI security model. Must ensure private keys 
 - [ ] Backup and recovery procedures work within mobile-only key constraints
 - [ ] Challenge-response authentication prevents key exposure during linking
 - [ ] Signature verification on Mendix uses only public keys (never private)
+- [ ] **Sandbox Testing**: Edge protection patterns validated in Veridian sandbox
+- [ ] **Sandbox Testing**: Private key operations confirmed to stay on mobile in sandbox
+- [ ] **Sandbox Testing**: Key rotation tested end-to-end in sandbox environment
+- [ ] **Sandbox Testing**: HSM integration patterns tested where available
+- [ ] **Sandbox Testing**: Signature verification tested with sandbox-generated keys
 
 ## Implementation Log
 <!-- Auto-generated log of actual development work performed by the LLM -->

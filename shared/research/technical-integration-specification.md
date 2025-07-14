@@ -94,6 +94,7 @@ This comprehensive technical specification defines the **hybrid QR code linking 
 
 #### Base Configuration
 ```yaml
+# Production Configuration
 veridian_api:
   base_url: "https://api.veridian.id"
   keria_url: "https://keria.veridian.id"
@@ -102,6 +103,15 @@ veridian_api:
   boot_port: 3903
   timeout: 30000
   retry_attempts: 3
+
+# Sandbox Configuration (for development and testing)
+veridian_sandbox:
+  boot_url: "https://keria-boot.demo.idw-sandboxes.cf-deployments.org"
+  keria_url: "https://keria.demo.idw-sandboxes.cf-deployments.org"
+  credential_ui_url: "https://cred-issuance-ui.demo.idw-sandboxes.cf-deployments.org"
+  timeout: 30000
+  retry_attempts: 3
+  environment: "sandbox"
 ```
 
 #### Core API Endpoints
@@ -1086,8 +1096,24 @@ veridian:
     - "https://witness3.veridian.id"
 ```
 
-#### Development Configuration
+#### Sandbox Configuration (Development/Testing)
 ```yaml
+# application-sandbox.yml
+veridian:
+  api:
+    boot_url: "https://keria-boot.demo.idw-sandboxes.cf-deployments.org"
+    keria_url: "https://keria.demo.idw-sandboxes.cf-deployments.org"
+    credential_ui_url: "https://cred-issuance-ui.demo.idw-sandboxes.cf-deployments.org"
+    timeout: 30000
+    retry_attempts: 3
+  security:
+    tls_version: "1.3"
+    certificate_pinning: true
+    mutual_tls: false
+  environment: "sandbox"
+  testing: true
+
+# Local Development Configuration
 # application-development.yml
 veridian:
   api:

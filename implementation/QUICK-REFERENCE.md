@@ -76,7 +76,14 @@
 ### Technical Documentation
 - `../Milestone1 - Design Specification.md` - Technical architecture
 - `../shared/research/` - Research materials and findings
+- `../shared/research/veridian-sandbox-environment.md` - **Sandbox testing guide**
 - `../product-owner/ProjectMgmt/Milestone 1/Epic*.md` - Epic specifications
+
+### 🧪 Veridian Sandbox (Ready for Testing)
+- **Boot**: https://keria-boot.demo.idw-sandboxes.cf-deployments.org
+- **Connect**: https://keria.demo.idw-sandboxes.cf-deployments.org
+- **Credential UI**: https://cred-issuance-ui.demo.idw-sandboxes.cf-deployments.org
+- **Status**: Available for all Sprint 1 development and testing
 
 ### Project Management
 - `../product-owner/ProjectMgmt/HowToManageThisProject.md` - PM system guide

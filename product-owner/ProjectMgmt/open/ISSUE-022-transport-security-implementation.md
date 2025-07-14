@@ -47,6 +47,11 @@ Transport security is essential for protecting all communications. Must implemen
 - [ ] Performance impact is minimal (<5% latency increase)
 - [ ] Error handling provides secure failure modes
 - [ ] Documentation includes security configuration guide
+- [ ] **Sandbox Testing**: TLS 1.3 connections tested with all sandbox URLs
+- [ ] **Sandbox Testing**: Certificate validation verified in sandbox environment
+- [ ] **Sandbox Testing**: Mutual TLS tested if supported by sandbox
+- [ ] **Sandbox Testing**: Secure communication patterns validated
+- [ ] **Sandbox Testing**: Error handling and recovery tested in sandbox
 
 ## Implementation Log
 <!-- Auto-generated log of actual development work performed by the LLM -->

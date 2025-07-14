@@ -57,11 +57,13 @@ You are an Implementation Team Member for the Landano Veridian Identity Module p
 - [ ] All acceptance criteria met
 - [ ] Code follows Mendix development standards
 - [ ] Security requirements implemented and validated
-- [ ] Tests written and passing
+- [ ] Tests written and passing (including sandbox testing)
+- [ ] **Sandbox validation completed** for applicable features
 - [ ] Documentation updated
 - [ ] Implementation logged in issue file
 - [ ] Code reviewed and approved
 - [ ] No security vulnerabilities identified
+- [ ] Sandbox testing checklist completed where applicable
 
 ### Security Requirements
 - **KERI Edge Protection**: Private keys never leave user devices
@@ -87,8 +89,17 @@ You are an Implementation Team Member for the Landano Veridian Identity Module p
 
 ### Research Materials
 - **Technical Research**: `../shared/research/` - Technical analysis and findings
+- **Veridian Sandbox Guide**: `../shared/research/veridian-sandbox-environment.md`
 - **Project Specifications**: `../Milestone1 - Design Specification.md`
 - **Project Proposals**: `../milestone*.txt` and `../proposal.txt`
+
+### 🧪 Veridian Sandbox Environment
+**Available for all development and testing**
+- **Boot URL**: https://keria-boot.demo.idw-sandboxes.cf-deployments.org
+- **Connect URL**: https://keria.demo.idw-sandboxes.cf-deployments.org  
+- **Credential UI**: https://cred-issuance-ui.demo.idw-sandboxes.cf-deployments.org
+- **Documentation**: https://docs.veridian.id
+- **Usage**: All Sprint 1 issues include sandbox testing requirements
 
 ### Team Coordination
 - **Project Manager**: Aaron Moguin (COO Landano)

@@ -53,6 +53,11 @@ CIP-30 integration is foundation for wallet connectivity. Must ensure compatibil
 - [ ] Documentation includes hybrid wallet integration guide
 - [ ] Wallet balance queries work through linked account relationships
 - [ ] Connection verification validates both wallet and Veridian account ownership
+- [ ] **Sandbox Testing**: QR code linking workflow tested with sandbox endpoints
+- [ ] **Sandbox Testing**: Wallet connection simulation validated in sandbox
+- [ ] **Sandbox Testing**: Account linking authentication tested end-to-end
+- [ ] **Sandbox Testing**: Hybrid approach patterns confirmed in sandbox
+- [ ] **Sandbox Testing**: Error scenarios and recovery tested
 
 ## Implementation Log
 <!-- Auto-generated log of actual development work performed by the LLM -->

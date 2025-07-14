@@ -1,8 +1,8 @@
 # ISSUE-001: Veridian Platform Integration Research
 
-**Status:** Open
+**Status:** WIP
 **Created:** 2025-07-14
-**Assignee:** Unassigned
+**Assignee:** Dorus van der Kroft
 **Priority:** High
 **Labels:** research, architecture, veridian, keri, sprint-1, sprint-ready
 **Sprint:** Sprint 1 (2025-07-14)
@@ -51,3 +51,6 @@ Created as foundational research issue for Epic 1. This must be completed before
 
 ## Implementation Log
 <!-- Auto-generated log of actual development work performed by the LLM -->
+
+### 2025-07-14 - Dorus van der Kroft
+Started work on this issue. Beginning implementation of acceptance criteria.

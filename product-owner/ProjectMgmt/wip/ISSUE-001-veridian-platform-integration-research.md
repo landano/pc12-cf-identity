@@ -87,3 +87,34 @@ Started work on this issue. Beginning implementation of acceptance criteria.
 - Cardano blockchain integration for policy ID verification
 
 All documentation ready for implementation team to begin development of identity creation features.
+
+### 2025-07-14 16:00 - Dorus van der Kroft CRITICAL CORRECTION
+**Action**: Major architectural correction - implemented hybrid QR code linking approach
+**Files Modified**: 
+- implementation/mendix-integration-patterns.md (UPDATED)
+- implementation/security-architecture-specification.md (UPDATED)
+- implementation/technical-integration-specification.md (UPDATED)
+- implementation/hybrid-qr-linking-analysis.md (NEW)
+**Commands Run**: Comprehensive analysis and documentation update
+**Result**: Success - Critical security flaw corrected, edge protection maintained
+**Next Steps**: Architecture now properly maintains KERI edge protection principles
+
+**ARCHITECTURAL CORRECTION SUMMARY**:
+❌ **ORIGINAL FLAW**: Proposed server-side key operations in Mendix (violates KERI edge protection)
+✅ **CORRECTED APPROACH**: Hybrid QR code linking where private keys NEVER leave Veridian mobile app
+
+**Key Changes**:
+1. **Private keys remain in Veridian mobile app** - all signing operations on mobile device
+2. **QR code challenge-response** - secure account linking without key transmission
+3. **Mendix server handles ONLY public operations** - signature verification, business logic
+4. **Maintains KERI edge protection** - zero server-side private key operations
+5. **Industry-standard pattern** - follows WalletConnect, MetaMask mobile approaches
+
+**Security Validation**:
+- ✅ KERI edge protection maintained
+- ✅ Zero server-side private key operations
+- ✅ Challenge-response prevents replay attacks
+- ✅ Cryptographic proof of account ownership
+- ✅ Transport security via TLS 1.3
+
+Architecture is now secure and compliant with KERI protocol requirements.

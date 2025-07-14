@@ -1,0 +1,27 @@
+Milestone 2
+Latest submission of the Milestone 2.
+
+Milestone submitted at	July 22, 2024 at 5:26 AM	
+Milestone Title	Testing and Refinement	
+Milestone Outputs	
+	1.	Comprehensive testing of the Mendix prototype to identify and resolve critical bugs.
+
+	2.	Updated prototype that meets all functional requirements as outlined in the initial design document.
+
+2
+approvals
+0
+refusals
+Acceptance criteria	
+	•	Resolution of all identified critical bugs during the testing phase.
+
+	•	Confirmation from the technical team that the updated prototype meets the predefined functional requirements.
+
+2
+approvals
+0
+refusals
+Evidence of milestone completion	
+	•	Detailed test reports that outline the outcomes, issues found during testing, and resolutions applied.
+
+	•	Demonstration video of the updated prototype, showcasing the refined functionalities and compliance with initial design specifications.

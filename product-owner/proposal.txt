@@ -1,0 +1,153 @@
+[GENERAL] Name and surname of main applicant
+Aaron Moguin
+[GENERAL] Are you delivering this project as an individual or as an entity (whether formally incorporated or not)
+Entity (Incorporated)
+[GENERAL] Please specify how many months you expect your project to last (from 2-12 months)
+3
+[GENERAL] Please indicate if your proposal has been auto-translated into English from another language
+No
+[GENERAL] Summarize your solution to the problem (200-character limit including spaces)
+Develop a Cardano Foundation Identity Wallet wrapper for the verification and transfer of Landano land right NFTs using KERI protocol. Share it with the Cardano community as a Mendix plugin.
+
+[GENERAL] Does your project have any dependencies on other organizations, technical or otherwise?
+Yes
+[GENERAL] If YES, please describe what the dependency is and why you believe it is essential for your project’s delivery. If NO, please write “No dependencies.”
+Cardano Foundation (Identity Wallet)
+
+[GENERAL] Will your project’s output/s be fully open source?
+Yes
+[GENERAL] Please provide here more information on the open source status of your project outputs
+The Landano project will issue an Apache 2.0 license for the intellectual works it creates, including the Mendix design models used to operate the Landano Mendix infrastructure, along with any software artifacts that are produced as a result. Note that some of the Landano components will have a dependency on Mendix’s public cloud infrastructure to execute some compute tasks. However, releasing the Landano models under Apache 2.0 license makes it easy for anyone to permissionlessly inspect, modify, and enhance these components and run them as their own modified Mendix modules, whether for personal or commercial use. See https://docs.landano.io/d/technical-architecture
+
+[METADATA] SDG rating
+SDG goals:
+
+End poverty in all its forms everywhere
+End hunger, achieve food security and improved nutrition and promote sustainable agriculture
+Promote sustained, inclusive and sustainable economic growth, full and productive employment and decent work for all
+Reduce inequality within and among countries
+SDG subgoals:
+
+By 2030, ensure that all men and women, in particular the poor and the vulnerable, have equal rights to economic resources, as well as access to basic services, ownership and control over land and other forms of property, inheritance, natural resources, appropriate new technology and financial services, including microfinance
+Ensure equal opportunity and reduce inequalities of outcome, including by eliminating discriminatory laws, policies and practices and promoting appropriate legislation, policies and action in this regard
+By 2030, double the agricultural productivity and incomes of small-scale food producers, in particular women, indigenous peoples, family farmers, pastoralists and fishers, including through secure and equal access to land, other productive resources and inputs, knowledge, financial services, markets and opportunities for value addition and non-farm employment
+Increase investment, including through enhanced international cooperation, in rural infrastructure, agricultural research and extension services, technology development and plant and livestock gene banks in order to enhance agricultural productive capacity in developing countries, in particular least developed countries
+Strengthen the capacity of domestic financial institutions to encourage and expand access to banking, insurance and financial services for all
+Key Performance Indicators (KPI):
+
+Proportion of total adult population with secure tenure rights to land, (a) with legally recognized documentation, and (b) who perceive their rights to land as secure, by sex and type of tenure
+Volume of production per labour unit by classes of farming/pastoral/forestry enterprise size
+Average income of small-scale food producers, by sex and indigenous status
+Proportion of adults (15 years and older) with an account at a bank or other financial institution or with a mobile-money-service provider
+Proportion of population reporting having personally felt discriminated against or harassed in the previous 12 months on the basis of a ground of discrimination prohibited under international human rights law
+[SOLUTION] Please describe your proposed solution
+In the past year there has been overwhelming interest in the use of blockchains like Cardano for Real World Asset (RWA) tokenization. Many Cardano projects, like Landano, are early leaders in this RealFi space. A critical component that many Cardano projects have been struggling with is a reliable and comprehensive decentralized identifier (DID) tool and protocol. This is critical to speed up implementation and market-share capture. There have been a number of tools and protocols developed over the past two years but the Cardano Foundation Identity Wallet initiative looks to have the most impact going forward. This is bolstered by its adoption of the KERI protocol which the Landano project, amongst many others, is looking to implement. See https://github.com/WebOfTrust/keri 
+
+Landano is developed using the Mendix development architecture. See https://docs.landano.io/d/technical-architecture. The Landano project will create a wrapper around the Cardano Foundation Identity Wallet as a Mendix plugin that can be used by other Cardano and Mendix projects. We will deliver and demonstrate the following core ID wallet use cases using the KERI protocol and CF ID wallet:
+
+Verify user identity
+Verify user ownership of NFT
+Landano use cases will also involve transaction fees and commissions that will require the movement of ADA and possibly other currencies. The Landano wrapper will prototype the integration of Cardano Foundation ID wallet records with ADA balances held in a standard cryptocurrency wallet. 
+
+[IMPACT] Please define the positive impact your project will have on the wider Cardano community
+Many Cardano projects have been struggling with adopting a reliable and comprehensive decentralized identifier (DID) tool and protocol. This is critical to speed up implementation and market-share capture. Our project will demonstrate a practical real-world implementation of the Cardano Foundation Identity Wallet and the KERI protocol. Landano will share the deliverables of this project as Mendix plugins to allow other Cardano and Mendix developers to speed up their own decentralized identifier (DID) solutions. This will attract many other RWA projects to Cardano as they realize that choosing the right open DID platform and protocol is critical for RealFi success.
+
+[CAPABILITY & FEASIBILITY] What is your capability to deliver your project with high levels of trust and accountability? How do you intend to validate if your approach is feasible?
+Aaron Moguin, COO of Landano and Project Manager: Aaron is responsible for the project's overall management, ensuring that all tasks progress cohesively and efficiently. His expertise in operations management is key to maintaining project timelines and delivering on milestones.
+
+Dorus van der Kroft, CTO of Landano and Lead Developer of the Project: Dorus is the driving technical force behind the project. With extensive experience in blockchain technology and software development, he ensures the technical excellence and innovation of our solution.
+
+Peter van Garderen, CEO of Landano and Systems Analyst for the Project: Peter brings a strategic vision for integrating blockchain solutions with enterprise systems, overseeing the analytical aspects of the project. His insights are vital in aligning Landano’s record-keeping requirements with industry standards.
+
+Technical Feasibility & Project Management:
+
+Our approach combines agile methodologies with continuous integration and deployment, ensuring that the project adapts to changing requirements and incorporates feedback efficiently. We leverage state-of-the-art tools for project tracking and version control, guaranteeing transparency and consistency.
+
+Risk Mitigation:
+
+We have identified key risks, including technical challenges in blockchain adoption in rural areas, and have strategies in place to mitigate them. Regular reviews, testing phases, and community engagement will ensure that we promptly address any issues, maintaining the project's integrity and progress.
+
+Our team's combination of technical acumen, strategic insight, operational excellence, and community engagement positions us to successfully deliver a product that meets the needs of the Cardano ecosystem and its stakeholders.
+
+[PROJECT MILESTONES] What are the key milestones you need to achieve in order to complete your project successfully?
+Milestone 1: 
+
+Milestone outputs: Design and Prototype
+Acceptance criteria: 
+Design specifications document
+Successful demonstration of the Mendix prototype in a test environment, showing preliminary integration capabilities.
+Evidence of milestone completion:
+Design document published on Landano’s website
+Video of demonstration
+Milestone 2: 
+
+Milestone outputs: Testing & Refinement
+Acceptance criteria:
+All critical bugs during testing are resolved
+The prototype meets the functional requirements outlined in the design document
+Evidence of milestone completion:
+Test reports detailing the outcomes and issues found
+Updated prototype demonstrating the refined functionalities
+Milestone 3 - Final: 
+
+Milestone outputs: Validation and Documentation
+Acceptance criteria:
+Positive feedback from stakeholders and potential users indicating the prototype is viable.
+Comprehensive documentation that allows users to understand and interact with the prototype effectively.
+Evidence of milestone completion:
+Mendix plugin published in Marketplace
+Published documentation and user guides
+[RESOURCES] Who is in the project team and what are their roles?
+Project management: Aaron Moguin, Project Manager and COO - Landano
+
+Aaron is responsible for this project's overall management and delivery schedule, ensuring that all components progress cohesively and efficiently. His expertise in operations management is key to maintaining project timelines and quality. 
+
+https://www.linkedin.com/in/aaron-moguin-0a769512/
+
+Software development: Dorus Van Der Kroft, Software Lead and CTO - Landano
+
+Dorus is co-founder of Landano. He is an expert consultant for the Mendix low code platform and a full stack developer with over twenty years of industry experience delivering projects from start to finish. His broad set of software engineering skills have been used in start-ups and large enterprises.
+
+https://www.linkedin.com/in/dorus/
+
+Design and requirements: Peter Van Garderen, System Architect and CEO - Landano
+
+Peter is co-founder of Landano. He is a professional archivist and a world-renowned expert in the field of digital records management. He is the creator of the most widely deployed open-source archives management applications in the world and a long-time decentralization advocate. Peter has designed software architectures and led development teams for over 15 years.
+
+https://www.linkedin.com/in/petervangarderen/
+
+User engagement and testing: Dan Amankona, CMO of Landano and Community Liaison: Dan plays a pivotal role in engaging with the developer and broader Cardano community, gathering feedback, and fostering collaborations that enhance the project's relevance and adoption.
+
+https://www.linkedin.com/in/dan-amankona-50346649/
+
+[BUDGET & COSTS] Please provide a cost breakdown of the proposed work and resources
+To accommodate for the fluctuation in ADA price, which creates a conversion risk and a potential budget shortfall, we are using the 12 month historical low (October 2023) base price of $0.25 ADA to calculate our expenses.
+
+We will employ 1 senior Mendix software engineers ($130/hr = 520 ADA/hr), 1 systems analyst ($100/hr = 400 ADA/hr) and 1 project manager ($100/hr = 400 ADA/hr) to complete this work over a three month period. The systems analyst role includes requirements analysis, documentation, user acceptance testing and community management.
+
+Milestone 1 (30 days): ₳42,400
+
+Software Engineer: 60 hrs (₳31,200)
+
+Systems Analyst: 20 hrs (₳8,000)
+
+Project Manager: 8 hrs (₳3,200)
+
+Milestone 2 (30 days): ₳42,400
+
+Software Engineer: 60 hrs (₳31,200)
+
+Systems Analyst: 20 hrs (₳8,000)
+
+Project Manager: 8 hrs (₳3,200)
+
+Milestone 3 - Final (30 days): ₳15,200
+
+Software Engineer: 20 hrs (₳10,400)
+
+Systems Analyst: 8 hrs (₳3,200)
+
+Project Manager: 4 hrs (₳1,600)
+
+[VALUE FOR MONEY] How does the cost of the project represent value for money for the Cardano ecosystem?
+The Mendix plug-in for Cardano is already under development, and will be completed by Q4 2024. Low-code adaptations like this have great potential to expand access for development and use for the Cardano ecosystem. Adding DID functionality to this expanded accessibility creates obvious potential for widespread adoption by adding a crucial element for many blockchain use cases, and will also increase Cardano’s utility for such use cases that demand secure and confident identity verification. 

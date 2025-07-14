@@ -1,0 +1,27 @@
+Milestone 3
+Latest submission of the Milestone 3.
+
+Milestone submitted at	July 22, 2024 at 5:28 AM	
+Milestone Title	Final Validation and Documentation	
+Milestone Outputs	
+	1.	Finalized and validated version of the Mendix plugin ready for deployment.
+
+	2.	Comprehensive documentation and user guides for the Mendix plugin.
+
+2
+approvals
+0
+refusals
+Acceptance criteria	
+	•	Positive feedback from key stakeholders and potential users confirming the viability and usability of the prototype.
+
+	•	Detailed documentation that provides clear instructions and guidelines for users to effectively utilize the plugin.
+
+2
+approvals
+0
+refusals
+Evidence of milestone completion	
+•	Official publication of the Mendix plugin in the Mendix Marketplace.
+
+•	Availability of detailed documentation and user guides on the Landano project website.

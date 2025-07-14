@@ -1,0 +1,27 @@
+Milestone 1
+Latest submission of the Milestone 1.
+
+Milestone submitted at	July 22, 2024 at 5:21 AM	
+Milestone Title	Design and Prototype	
+Milestone Outputs	
+	1.	Detailed design specifications document for the Identity Wallet wrapper.
+
+	2.	A functional Mendix prototype showcasing preliminary integration capabilities with the Cardano Foundation Identity Wallet using the KERI protocol.
+
+2
+approvals
+0
+refusals
+Acceptance criteria	
+	•	Approval of the design specifications document by the project review committee.
+
+	•	Successful demonstration of the Mendix prototype in a controlled test environment, illustrating integration capabilities with the Cardano Foundation Identity Wallet.
+
+2
+approvals
+0
+refusals
+Evidence of milestone completion	
+	•	Publication of the design document on the official Landano project website.
+
+	•	Video recording of the prototype demonstration, uploaded to the Landano project’s official YouTube channel or website.

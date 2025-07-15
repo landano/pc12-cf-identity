@@ -4,7 +4,7 @@
 **Created:** 2025-07-14
 **Assignee:** Unassigned
 **Priority:** High
-**Labels:** frontend, ui, chief, identity, keri
+**Labels:** frontend, ui, chief, identity, keri, sprint-ready
 
 ## Description
 Create the Mendix user interface for village chiefs to create their digital identities as root-of-trust using the **hybrid QR code linking approach**. This interface facilitates identity creation in the Veridian mobile app while maintaining KERI edge protection (private keys never leave mobile device) and providing seamless integration with Mendix business logic.

@@ -10,7 +10,7 @@ Create the essential foundation layer that will unblock the maximum number of su
 - Core security architecture (KERI edge protection and transport security)
 - Essential integration points (Cardano plugin and wallet connectivity)
 
-## Selected Issues (5 total)
+## Selected Issues (6 total - Extended Sprint Scope)
 
 ### 1. ISSUE-001: Veridian Platform Integration Research
 **Sprint Priority:** 1 (Critical - Unblocks 12 issues)  
@@ -63,8 +63,19 @@ Create the essential foundation layer that will unblock the maximum number of su
 - Wallet connection UI components
 - Wallet state management and switching capabilities
 
+### 6. ISSUE-027: Veridian Sandbox Test Setup
+**Sprint Priority:** 6 (Enables comprehensive testing)  
+**Epic:** Testing and Validation Framework  
+**Impact:** Enables multi-stakeholder testing with available resources  
+**Key Deliverables:**
+- Veridian sandbox environment setup procedures
+- Multi-stakeholder test scenarios (chief, representative, verifier)
+- 2-phone testing procedures and role assignments
+- Alternative testing methods (emulators, mock services)
+- Test data, credentials, and troubleshooting guides
+
 ## Success Metrics
-- All 5 issues moved from Open to Closed status
+- All 6 issues moved from Open to Closed status
 - All acceptance criteria met for each issue
 - Security implementations pass initial security review
 - Integration specifications enable dependent issue implementation
@@ -78,13 +89,22 @@ Create the essential foundation layer that will unblock the maximum number of su
 
 ## Sprint 1 Prioritization Update (2025-07-15)
 
-**Current Status:** ISSUE-001 moved to WIP, research underway
+**Current Status:** 
+- ISSUE-001 moved to WIP, research underway
+- ISSUE-021 implementation reality check: needs Mendix project setup
+- Sprint scope extended - plenty of time remaining in 2-week sprint
 
-**Updated Implementation Priority:**
-1. Complete ISSUE-001 (already in progress)
-2. ISSUE-021 (CRITICAL) - Must complete before any identity features
-3. ISSUE-022 - Can be developed in parallel with ISSUE-021
-4. ISSUE-015 & ISSUE-017 - Can proceed after security foundations
+**Updated Implementation Plan:**
+1. **Mendix Project Setup** (Dorus) - Local development environment
+2. **ISSUE-021 Implementation** (Dorus + Mendix Business Engineer Agent) - Functional code
+3. **ISSUE-027 Sandbox Test Setup** (Implementation Agent) - Test procedures
+4. **ISSUE-022 Transport Security** - Can proceed in parallel
+5. **ISSUE-015 & ISSUE-017** - Continue after foundations
+
+**New Resources:**
+- **Mendix Business Engineer Agent** created for SDK-based development
+- **2 phones available** for multi-stakeholder testing
+- **Local Mendix environment** before sandbox deployment
 
 **Added Sprint-Ready Labels to:**
 - ISSUE-002: Chief Identity Creation UI

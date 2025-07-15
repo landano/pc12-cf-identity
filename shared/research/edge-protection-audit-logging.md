@@ -1,5 +1,7 @@
 # Edge Protection Audit Logging Implementation
 
+**Related to:** ISSUE-021
+
 ## Overview
 This implementation provides comprehensive audit logging for edge protection operations, ensuring complete visibility into security events while maintaining KERI protocol compliance and regulatory requirements.
 

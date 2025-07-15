@@ -3,7 +3,6 @@
 ## Essential Commands
 
 ### Getting Started
-- `/start` - Initialize as Implementation Team Member
 - `/currentSprint` - View current sprint details and sprint-ready issues
 - `/sprintStatus` - Check sprint progress and your active issues
 
@@ -22,12 +21,10 @@
 ### Quality Assurance
 - `/checkSecurity ISSUE-XXX` - Validate security requirements
 - `/runTests [ISSUE-XXX]` - Execute test suites
-- `/quality` - Check code quality metrics
 
 ### Team Coordination
 - `/myIssues` - View all your assigned issues
 - `/blocked ISSUE-XXX "reason"` - Report blocking issues
-- `/sprintBacklog` - View available sprint issues
 
 ## Sprint 1 Issues (Ready for Implementation)
 
@@ -87,7 +84,7 @@
 
 ### Project Management
 - `../product-owner/ProjectMgmt/HowToManageThisProject.md` - PM system guide
-- `./COMMANDS.md` - Detailed command implementations
+- `./.claude/commands/` - Individual slash command implementations
 
 ## Security Requirements (Critical)
 
@@ -156,15 +153,15 @@
 
 ### Security Concerns
 1. Stop work immediately if security issue found
-2. Use `/emergency` command for urgent issues
-3. Report to project management
-4. Document security concerns thoroughly
+2. Report to project management immediately
+3. Document security concerns thoroughly
+4. Use `/checkSecurity` to validate requirements
 
 ### Technical Issues
-1. Use `/mentor` for implementation guidance
-2. Access project documentation for reference
-3. Check dependencies with `/dependencies`
-4. Consider alternative approaches
+1. Access project documentation for reference with `/accessDocs`
+2. Check dependencies with `/dependencies`
+3. Consider alternative approaches
+4. Use `/research` for technical specifications
 
 ## Communication Guidelines
 

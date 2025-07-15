@@ -13,8 +13,9 @@ pc12-cf-identity/
 │       ├── wip/              # Active issues
 │       └── closed/           # Completed issues
 ├── implementation/           # Implementation team workspace
+│   ├── .claude/
+│   │   └── commands/         # Individual slash command files
 │   ├── HowToImplementThisProject.md
-│   ├── COMMANDS.md
 │   ├── QUICK-REFERENCE.md
 │   └── WORKFLOW-INTEGRATION.md
 └── shared/
@@ -57,7 +58,8 @@ highest_priority_issue=$(find ../product-owner/ProjectMgmt/open/ -name "*.md" -e
 if [ -n "$highest_priority_issue" ]; then
     issue_id=$(echo "$highest_priority_issue" | cut -d: -f2)
     echo "Starting work on highest priority issue: $issue_id"
-    /startWork "$issue_id"
+    # Execute /startWork command
+    ./.claude/commands/startWork.md "$issue_id"
 else
     echo "No sprint-ready issues available"
 fi
@@ -78,7 +80,8 @@ find ../product-owner/ProjectMgmt/wip/ -name "*.md" -exec grep -l "$USER_NAME" {
     last_update=$(grep "### $(date +%Y-%m-%d)" "$file" | tail -1)
     if [ -z "$last_update" ]; then
         echo "  No update today - prompting for progress"
-        /updateProgress "$issue_id"
+        # Execute /updateProgress command
+        ./.claude/commands/updateProgress.md "$issue_id"
     else
         echo "  Already updated today"
     fi
@@ -101,7 +104,8 @@ find ../product-owner/ProjectMgmt/wip/ -name "*.md" -exec grep -l "$USER_NAME" {
         echo "$issue_id: Ready for completion (all criteria met)"
         read -p "Complete $issue_id? (y/N): " confirm
         if [ "$confirm" = "y" ]; then
-            /completeIssue "$issue_id"
+            # Execute /completeIssue command
+            ./.claude/commands/completeIssue.md "$issue_id"
         fi
     else
         echo "$issue_id: $incomplete_criteria criteria remaining"
@@ -217,7 +221,8 @@ echo "Progress: $completed_criteria/$total_criteria criteria completed"
 
 # Security validation
 echo -e "\n=== SECURITY VALIDATION ==="
-/checkSecurity "$ISSUE_ID"
+# Execute /checkSecurity command
+./.claude/commands/checkSecurity.md "$ISSUE_ID"
 
 # Implementation log validation
 echo -e "\n=== IMPLEMENTATION LOG VALIDATION ==="
@@ -232,7 +237,8 @@ fi
 
 # Test validation
 echo -e "\n=== TEST VALIDATION ==="
-/runTests "$ISSUE_ID"
+# Execute /runTests command
+./.claude/commands/runTests.md "$ISSUE_ID"
 ```
 
 ### /securityScan

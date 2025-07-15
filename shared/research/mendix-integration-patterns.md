@@ -1,5 +1,7 @@
 # Mendix Integration Patterns for Veridian Identity Platform
 
+**Related to:** ISSUE-021
+
 ## Overview
 This document defines integration patterns for implementing the Veridian Identity platform within the Mendix low-code architecture for the Landano land rights NFT verification system using a **hybrid QR code linking approach** that maintains KERI edge protection.
 

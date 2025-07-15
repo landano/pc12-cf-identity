@@ -1,5 +1,7 @@
 # Secure QR Code Challenge-Response Implementation
 
+**Related to:** ISSUE-021
+
 ## Overview
 This document provides the complete implementation for the secure QR code challenge-response mechanism that maintains KERI edge protection while enabling secure account linking between Mendix and Veridian systems.
 

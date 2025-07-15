@@ -1,5 +1,7 @@
 # Server-Side Signature Verification Service (Public Keys Only)
 
+**Related to:** ISSUE-021
+
 ## Overview
 This implementation provides comprehensive server-side signature verification using only public keys, ensuring complete compliance with KERI edge protection principles. No private key operations occur on the server.
 

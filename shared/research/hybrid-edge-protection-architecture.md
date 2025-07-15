@@ -1,5 +1,7 @@
 # Hybrid Edge Protection Architecture for Landano-Veridian Integration
 
+**Related to:** ISSUE-021
+
 ## Executive Summary
 This document defines the complete edge protection architecture for the Landano-Veridian integration, ensuring KERI protocol compliance through a hybrid approach where private keys never leave mobile devices while enabling secure account linking and business logic execution in Mendix.
 

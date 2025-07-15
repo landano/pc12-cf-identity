@@ -1,5 +1,7 @@
 # Technical Integration Specification - Veridian Identity Platform
 
+**Related to:** ISSUE-021
+
 ## Document Overview
 This comprehensive technical specification defines the **hybrid QR code linking integration** approach for the Veridian Identity platform within the Mendix architecture for the Landano land rights NFT verification system, incorporating KERI protocol compliance and enterprise-grade security while maintaining edge protection.
 

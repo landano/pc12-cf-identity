@@ -1,5 +1,7 @@
 # Hybrid QR Code Linking Analysis - Veridian-Mendix Integration
 
+**Related to:** ISSUE-021
+
 ## Executive Summary
 The proposed QR code linking approach is **technically feasible and maintains KERI edge protection** while creating a secure bridge between Mendix user accounts and Veridian wallets. This analysis confirms the approach can work securely with proper implementation.
 

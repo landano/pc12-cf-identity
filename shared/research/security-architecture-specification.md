@@ -1,5 +1,7 @@
 # Security Architecture Specification - Veridian Identity Integration
 
+**Related to:** ISSUE-021
+
 ## Executive Summary
 This document defines the comprehensive security architecture for integrating the Veridian Identity platform with the Mendix-based Landano land rights NFT verification system using a **hybrid QR code linking approach** that maintains KERI edge protection, transport security, and enterprise-grade cryptographic protection.
 

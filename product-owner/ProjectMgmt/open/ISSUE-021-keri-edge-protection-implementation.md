@@ -3,7 +3,7 @@
 **Status:** Open
 **Created:** 2025-07-14
 **Assignee:** Unassigned
-**Priority:** High
+**Priority:** CRITICAL
 **Labels:** keri, edge-protection, security, private-keys, signify, sprint-1, sprint-ready
 **Sprint:** Sprint 1 (2025-07-14)
 **Sprint Priority:** 2 (Critical security foundation)

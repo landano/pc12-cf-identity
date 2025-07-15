@@ -1,8 +1,8 @@
 # ISSUE-021: KERI Edge Protection Implementation
 
-**Status:** Open
+**Status:** WIP
 **Created:** 2025-07-14
-**Assignee:** Unassigned
+**Assignee:** Dorus van der Kroft
 **Priority:** CRITICAL
 **Labels:** keri, edge-protection, security, private-keys, signify, sprint-1, sprint-ready
 **Sprint:** Sprint 1 (2025-07-14)
@@ -62,3 +62,6 @@ Edge protection is fundamental to KERI security model. Must ensure private keys 
 
 ## Implementation Log
 <!-- Auto-generated log of actual development work performed by the LLM -->
+
+### 2025-07-14 - Dorus van der Kroft
+Started work on ISSUE-021. Beginning implementation of KERI edge protection using hybrid QR code linking approach identified in ISSUE-001 research.

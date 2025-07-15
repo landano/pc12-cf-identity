@@ -4,7 +4,7 @@
 **Created:** 2025-07-14
 **Assignee:** Unassigned
 **Priority:** High
-**Labels:** frontend, ui, representative, identity, signify
+**Labels:** frontend, ui, representative, identity, signify, sprint-ready
 
 ## Description
 Create the Mendix user interface for representatives to create their digital identities using the **hybrid QR code linking approach** with Veridian Identity Wallet. This interface facilitates identity creation in the Veridian mobile app while maintaining KERI edge protection and providing seamless account linking with Mendix.

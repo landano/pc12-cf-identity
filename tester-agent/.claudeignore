@@ -1,0 +1,63 @@
+# Claude Ignore File for Tester Agent
+
+# Build artifacts
+**/dist/**
+**/build/**
+**/target/**
+**/.next/**
+**/.nuxt/**
+
+# Dependencies
+**/node_modules/**
+**/vendor/**
+**/.pnpm-store/**
+
+# Version control
+**/.git/**
+**/.svn/**
+**/.hg/**
+
+# IDE and editor files
+**/.idea/**
+**/.vscode/**
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Test coverage
+**/coverage/**
+**/.nyc_output/**
+
+# Logs
+*.log
+logs/
+
+# Environment files
+.env.local
+.env.*.local
+
+# Temporary files
+**/tmp/**
+**/temp/**
+*.tmp
+*.temp
+
+# Large binary files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test results
+**/test-results/**
+**/junit.xml
+**/test-report.xml

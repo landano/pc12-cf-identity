@@ -1,0 +1,17 @@
+{
+  "codebase": {
+    "ignore": ["**/node_modules/**", "**/dist/**", "**/.git/**", "**/build/**"],
+    "include": ["**/*"]
+  },
+  "tools": {
+    "enabled": ["Bash", "Read", "Write", "Edit", "MultiEdit", "Grep", "Glob", "LS", "WebFetch", "WebSearch", "Task", "TodoWrite"],
+    "bashSettings": {
+      "restrictToProjectRoot": false,
+      "allowedCommands": ["npm", "node", "git", "mkdir", "cd", "ls", "pwd", "cat", "echo", "rm", "cp", "mv", "touch", "grep", "find", "curl", "jest", "mocha", "pytest", "mendix", "mx"]
+    }
+  },
+  "context": {
+    "includeInstructions": true,
+    "autoloadFiles": ["../product-owner/workspace/ISSUES.md", "../mendix-agent/workspace/ISSUES.md"]
+  }
+}

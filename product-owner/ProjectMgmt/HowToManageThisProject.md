@@ -13,6 +13,7 @@ You are a project management assistant that manages issues using a filesystem-ba
 **Issue States (Directories):**
 - `./ProjectMgmt/open/` - New and unstarted issues
 - `./ProjectMgmt/wip/` - Work in progress issues
+- `./ProjectMgmt/ready_for_testing/` - Development complete, awaiting testing
 - `./ProjectMgmt/closed/` - Completed issues
 
 ## File Conventions
@@ -33,7 +34,7 @@ You are a project management assistant that manages issues using a filesystem-ba
 ```markdown
 # ISSUE-042: Fix Login Bug
 
-**Status:** Open | WIP | Closed
+**Status:** Open | WIP | ready_for_testing | Closed
 **Created:** YYYY-MM-DD
 **Assignee:** John Doe | @johndoe | Unassigned
 **Priority:** High | Medium | Low
@@ -163,7 +164,9 @@ Blocking issue ISSUE-045 has been closed. This issue can now proceed without blo
 3. **Commit messages**: Use emoji prefix + format `"[ISSUE-XXX] action: description"`
    - **Creating**: `"📝 [ISSUE-042] created: login authentication bug"`
    - **Open → WIP**: `"🗓️ ⇨ 🛠️ [ISSUE-042] moved to wip: starting development"`
-   - **WIP → Closed**: `"🛠️ ⇨ ✅ [ISSUE-042] moved to closed: all tasks complete"`
+   - **WIP → Ready for Testing**: `"🛠️ ⇨ 🧪 [ISSUE-042] moved to ready_for_testing: development complete"`
+   - **Ready for Testing → Closed**: `"🧪 ⇨ ✅ [ISSUE-042] moved to closed: all tests passed"`
+   - **Ready for Testing → WIP**: `"🧪 ⇨ 🛠️ [ISSUE-042] moved back to wip: test failures need fixing"`
    - **Updating tasks**: `"📋 [ISSUE-042] updated: completed 2/5 tasks"`
    - **Subtask progress**: `"📋 [ISSUE-042-a] subtask wip: starting investigation"`
    - **Subtask complete**: `"📋 [ISSUE-042-b] subtask done: unit tests complete"`
@@ -192,7 +195,10 @@ Blocking issue ISSUE-045 has been closed. This issue can now proceed without blo
    - Update task checkboxes from `[ ]` to `[✓]` as work completes
    - Update subtask checkboxes through three states: `[ ]` → `[⚒]` → `[✓]`
    - **Log all implementation work** in the Implementation Log section
-5. **Completion**: When all tasks and subtasks are done, move to `./ProjectMgmt/closed/` with Status: Closed
+5. **Testing**: When development is complete, move to `./ProjectMgmt/ready_for_testing/` with Status: ready_for_testing
+   - Create test request in tester agent workspace
+   - Wait for test results before proceeding
+6. **Completion**: When all tests pass, move to `./ProjectMgmt/closed/` with Status: Closed
 
 ### Implementation Work vs Project Management
 - **Comments section**: For discussions, decisions, blockers, general updates
@@ -204,7 +210,9 @@ Blocking issue ISSUE-045 has been closed. This issue can now proceed without blo
 ### State Transitions
 - **open → wip**: When work begins on an issue
   - Consider breaking complex tasks into subtasks at this point
-- **wip → closed**: When all tasks AND subtasks are complete or issue is resolved
+- **wip → ready_for_testing**: When development is complete but needs testing
+- **ready_for_testing → wip**: If tests fail and more work is needed
+- **ready_for_testing → closed**: When all tests pass
 - **closed → open**: If issue needs to be reopened (rare)
 - Always update the Status field to match the directory location
 - Subtasks progress independently: `[ ]` → `[⚒]` → `[✓]` within the parent issue
@@ -295,20 +303,21 @@ Example log entry:
 4. **Label Filtering**: Find issues with specific labels
 5. **Stale Detection**: WIP issues with no recent updates (use `date` for comparison)
 6. **Completion Check**: WIP issues with all tasks and subtasks marked complete
-7. **Today's Activity**: Issues created/modified today using `date +%Y-%m-%d`
-8. **Visual Git History**: `git log --oneline --grep="\[ISSUE-" | head -20` shows recent issue activity with emojis
-9. **Subtask Progress**: Find all WIP subtasks with `grep -r "\[⚒\]" ./ProjectMgmt/wip/`
-10. **Subtask Overview**: Count subtasks by state across all issues:
+7. **Testing Queue**: Issues in ready_for_testing awaiting QA verification
+8. **Today's Activity**: Issues created/modified today using `date +%Y-%m-%d`
+9. **Visual Git History**: `git log --oneline --grep="\[ISSUE-" | head -20` shows recent issue activity with emojis
+10. **Subtask Progress**: Find all WIP subtasks with `grep -r "\[⚒\]" ./ProjectMgmt/wip/`
+11. **Subtask Overview**: Count subtasks by state across all issues:
     ```bash
     echo "Open subtasks: $(grep -r "\[ \] \[\[ISSUE-" ./ProjectMgmt/wip/ | wc -l)"
     echo "WIP subtasks: $(grep -r "\[⚒\] \[\[ISSUE-" ./ProjectMgmt/wip/ | wc -l)"
     echo "Done subtasks: $(grep -r "\[✓\] \[\[ISSUE-" ./ProjectMgmt/wip/ | wc -l)"
     ```
-11. **Dependency Check**: Find all issues that depend on or are blocked by a specific issue:
+12. **Dependency Check**: Find all issues that depend on or are blocked by a specific issue:
     ```bash
     grep -r "ISSUE-042" ./ProjectMgmt/ --exclude="*ISSUE-042-*.md" | grep -E "(depends on|blocked by|implements)"
     ```
-12. **Relationship Audit**: Check for references to closed issues that might need updating:
+13. **Relationship Audit**: Check for references to closed issues that might need updating:
     ```bash
     # Find references to issues in closed directory
     for file in ./ProjectMgmt/closed/*.md; do
@@ -317,7 +326,7 @@ Example log entry:
         grep -r "$ISSUE_ID" ./ProjectMgmt/{open,wip}/ 2>/dev/null
     done
     ```
-13. **Implementation Activity**: Find recent LLM implementation work:
+14. **Implementation Activity**: Find recent LLM implementation work:
     ```bash
     # Find all implementation logs from today
     grep -r "$(date +%Y-%m-%d).*LLM Implementation" ./ProjectMgmt/wip/
@@ -544,6 +553,7 @@ git commit -m "🛠️ ⇨ ✅ [ISSUE-039] closed: authentication refactor compl
 - ⚡ = Performance / 🔒 = Security / 🎨 = UI/UX
 - 🔙 = Reopened issue / ❌ = Cancelled issue
 - 🔗 = Linked issues / 🏷️ = Label change
+- 🧪 = Testing state / Ready for testing
 - ⚒ = Subtask in progress (used in checkbox state [⚒])
 
 **Important:** These workflows are specifically for issue management. Always use specific paths starting with `./ProjectMgmt/` when adding issue-related files. Regular code development follows standard git practices without these restrictions.

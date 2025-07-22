@@ -1,0 +1,21 @@
+# .claudeignore - Mendix Agent Workspace
+
+# Ignore parent directory configurations to maintain agent isolation
+../CLAUDE.md
+../.claudeignore
+
+# Ignore any temporary or build files
+*.tmp
+*.log
+*.bak
+.DS_Store
+
+# Mendix specific ignores
+deployment/
+.mendix-cache/
+*.mpr.lock
+*.mpr.bak
+*.mpk
+
+# Keep focus on agent-specific files
+# All other files in this directory should be accessible to the agent

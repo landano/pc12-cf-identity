@@ -1,0 +1,22 @@
+{
+  "name": "Mendix Business Engineer Agent",
+  "version": "1.0.0",
+  "description": "Specialized Mendix development agent for the Landano Veridian Identity Module project",
+  "workspace": {
+    "root": "/Users/dorusvanderkroft/dev/landano/pc12-cf-identity/mendix-agent",
+    "primaryConfig": "CLAUDE.md",
+    "ignoreFile": ".claudeignore"
+  },
+  "agent": {
+    "role": "Mendix SDK Specialist",
+    "supervisor": "Dorus van der Kroft",
+    "level": "Junior",
+    "experience": 0,
+    "project": "Landano Veridian Identity Module"
+  },
+  "settings": {
+    "isolateFromParent": true,
+    "useLocalContext": true,
+    "prioritizeAgentSpec": true
+  }
+}

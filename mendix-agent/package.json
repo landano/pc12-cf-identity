@@ -1,0 +1,27 @@
+{
+  "name": "mendix-agent-sdk",
+  "version": "1.0.0",
+  "description": "Mendix SDK integration for automated development tasks",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mendix",
+    "sdk",
+    "automation"
+  ],
+  "author": "Mendix Business Engineer Agent",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "dotenv": "^17.2.0",
+    "mendixmodelsdk": "^4.56.0",
+    "mendixplatformsdk": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3"
+  }
+}
